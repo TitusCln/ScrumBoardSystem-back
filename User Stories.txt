@@ -1,0 +1,28 @@
+As a user I need to be able to select user stories to create a sprint backlog
+
+As a user I need to be able to save user stories with title, description and acceptance criteria
+
+As a user I need to be able to classify user stories by their nature (functional, technical, issue)
+
+As a user I need to be able to estimate the weight of a user story
+
+As a user I need to be able to decompose a user story into tasks
+
+As a user I need to be able to change the status of each user story task between (To do, Doing, Done)
+
+As a user I need to be able to mark a user story as done
+
+As a user I neet to be able to observe the Sprint progress as user story points completed VS Sprint total
+
+As a user I need to be able to observe the Sprint progress as tasks completed VS total
+
+As a user I need to be able to assign a user story task to a specific user as responble
+
+As a user i need to be able to create projects with name, estitame sprints, sprints duration
+
+As a user i need to be able to logIn to manage my projects and activities
+
+As a user i need to be able to add (invite) other users to a specific project
+
+As a user i need to be able to group users stories as a Feature
+
