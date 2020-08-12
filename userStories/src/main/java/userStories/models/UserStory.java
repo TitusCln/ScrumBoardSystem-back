@@ -1,6 +1,7 @@
 package userStories.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table
@@ -12,7 +13,12 @@ public class UserStory {
     private String title;
     private String description;
     private Integer weight;
-
+    @ManyToMany
+    @JoinTable(
+            name = "story_label",
+            joinColumns = @JoinColumn(name = "userStory_id"),
+            inverseJoinColumns = @JoinColumn(name = "label_id"))
+    private Set<Label> labels;
 
     public String getTitle() {
         return title;
@@ -36,6 +42,14 @@ public class UserStory {
 
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    public Set<Label> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(Set<Label> labels) {
+        this.labels = labels;
     }
 
     public dto.UserStory toDTO(){
