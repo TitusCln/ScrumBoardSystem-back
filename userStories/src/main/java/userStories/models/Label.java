@@ -18,7 +18,28 @@ public class Label {
     public Label() {
     }
 
+    public Label(dto.Label label){
+        this.id=label.getId();
+        this.description=label.getDescription();
+    }
+
     public Label(String description) {
+        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
     }
 

@@ -27,7 +27,8 @@ public class UserStoryImpl implements UserStoryService {
 
     @Override
     public UserStory create(UserStory userStory) {
-        return null;
+        userStories.models.UserStory userStoryToSave=new userStories.models.UserStory(userStory);
+        return userStoryRepository.save(userStoryToSave).toDTO();
     }
 
     @Override

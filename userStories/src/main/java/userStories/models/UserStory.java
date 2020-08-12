@@ -2,6 +2,7 @@ package userStories.models;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table
@@ -19,6 +20,14 @@ public class UserStory {
             joinColumns = @JoinColumn(name = "userStory_id"),
             inverseJoinColumns = @JoinColumn(name = "label_id"))
     private Set<Label> labels;
+
+    public UserStory(dto.UserStory userStory){
+        this.id=userStory.getId();
+        this.title= userStory.getTitle();
+        this.description= userStory.getDescription();
+        this.weight= userStory.getWeight();
+        this.labels=userStory.getLabels().parallelStream().map(Label::new).collect(Collectors.toSet());
+    }
 
     public String getTitle() {
         return title;
@@ -58,6 +67,10 @@ public class UserStory {
                 .withTitle(this.title)
                 .withDescription(this.description)
                 .withWeight(this.weight)
+                .withLabels(this.labels.parallelStream().map(label -> new dto.Label.Builder()
+                        .withId(label.getId())
+                        .withDescription(label.getDescription())
+                        .build()).collect(Collectors.toSet()))
                 .build();
     }
 }
