@@ -18,9 +18,9 @@ public class Label {
     public Label() {
     }
 
-    public Label(dto.Label label){
-        this.id=label.getId();
-        this.description=label.getDescription();
+    public Label(com.sbs.dto.Label label) {
+        this.id = label.getId();
+        this.description = label.getDescription();
     }
 
     public Label(String description) {

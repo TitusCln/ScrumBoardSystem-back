@@ -1,7 +1,10 @@
-package dto;
+package com.sbs.dto;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Set;
 
+@JsonDeserialize(builder = UserStory.Builder.class)
 public class UserStory {
 
     private Long id;

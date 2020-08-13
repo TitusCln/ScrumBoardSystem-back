@@ -17,16 +17,15 @@ plugins {
 }
 
 repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
-
+     implementation 'com.sbs.dto:contracts:1.0.0'
     // Use JUnit test framework
     testImplementation 'junit:junit:4.13'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -36,10 +35,9 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-
 }
 
 application {
     // Define the main class for the application.
-    mainClassName = 'userStories.App'
+    mainClassName = 'userStories.UserStoriesApplication'
 }

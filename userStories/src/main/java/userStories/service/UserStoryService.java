@@ -1,6 +1,6 @@
 package userStories.service;
 
-import dto.UserStory;
+import com.sbs.dto.UserStory;
 
 public interface UserStoryService {
 

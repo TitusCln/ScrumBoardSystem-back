@@ -1,13 +1,19 @@
 package userStories.service.impl;
 
-import dto.UserStory;
+import com.sbs.dto.UserStory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import userStories.models.Label;
 import userStories.models.UserStoryRepository;
 import userStories.service.UserStoryService;
 
+import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+@Service
 public class UserStoryImpl implements UserStoryService {
 
     @Autowired
@@ -43,6 +49,11 @@ public class UserStoryImpl implements UserStoryService {
                     userStory.setTitle(updatedUserStory.getTitle());
                     userStory.setDescription(updatedUserStory.getDescription());
                     userStory.setWeight(updatedUserStory.getWeight());
+                    userStory.setLabels(Optional.ofNullable(updatedUserStory.getLabels())
+                            .map(Collection::parallelStream)
+                            .orElseGet(Stream::empty)
+                            .map(Label::new)
+                            .collect(Collectors.toSet()));
                     return userStoryRepository.save(userStory).toDTO();
                 }).get();
     }

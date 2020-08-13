@@ -1,5 +1,8 @@
-package dto;
+package com.sbs.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(builder = Label.Builder.class)
 public class Label {
 
     private Long id;
