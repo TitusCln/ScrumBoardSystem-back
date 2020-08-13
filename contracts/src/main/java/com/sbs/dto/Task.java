@@ -1,6 +1,5 @@
 package com.sbs.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(builder = Task.Builder.class)
@@ -9,8 +8,6 @@ public class Task {
     private Long id;
     private String description;
     private Double duration;
-    @JsonIgnoreProperties("tasks")
-    private UserStory userStory;
 
     public Task() {
     }
@@ -19,14 +16,12 @@ public class Task {
         this.id = builder.id;
         this.description = builder.description;
         this.duration = builder.duration;
-        this.userStory = builder.userStory;
     }
 
 
     public Task(String description, Double duration, UserStory userStory) {
         this.description = description;
         this.duration = duration;
-        this.userStory = userStory;
     }
 
     public Long getId() {
@@ -53,19 +48,10 @@ public class Task {
         this.duration = duration;
     }
 
-    public UserStory getUserStory() {
-        return userStory;
-    }
-
-    public void setUserStory(UserStory userStory) {
-        this.userStory = userStory;
-    }
-
     public static class Builder {
         private Long id;
         private String description;
         private Double duration;
-        private UserStory userStory;
 
         public Builder withId(Long id) {
             this.id = id;
@@ -79,11 +65,6 @@ public class Task {
 
         public Builder withDuration(Double duration) {
             this.duration = duration;
-            return this;
-        }
-
-        public Builder withUserStory(UserStory userStory) {
-            this.userStory = userStory;
             return this;
         }
 

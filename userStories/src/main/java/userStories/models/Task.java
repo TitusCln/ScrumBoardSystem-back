@@ -22,7 +22,6 @@ public class Task {
         this.id = task.getId();
         this.description = task.getDescription();
         this.duration = task.getDuration();
-        this.userStory = new UserStory(task.getUserStory());
     }
 
 
@@ -62,17 +61,11 @@ public class Task {
         this.userStory = userStory;
     }
 
-    public Task addUserStory(UserStory userStory) {
-        this.userStory = userStory;
-        return this;
-    }
-
     public com.sbs.dto.Task toDTO() {
         return new com.sbs.dto.Task.Builder()
                 .withId(this.id)
                 .withDescription(this.description)
                 .withDuration(this.duration)
-                .withUserStory(this.userStory.toDTO())
                 .build();
     }
 }

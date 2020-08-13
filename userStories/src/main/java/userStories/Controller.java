@@ -54,9 +54,7 @@ public class Controller {
 
     @PostMapping(value = "/userstories/{userStoryId}/tasks")
     public Task createTask(@PathVariable Long userStoryId, @RequestBody Task task) {
-        UserStory userStory = userStoryService.getUserStoryById(userStoryId);
-        task.setUserStory(userStory);
-        return taskService.create(task);
+        return taskService.create(userStoryId, task);
     }
 
     @PutMapping(value = "/userstories/{userStoryId}/tasks/{taskId}")

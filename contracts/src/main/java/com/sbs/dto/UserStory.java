@@ -1,6 +1,5 @@
 package com.sbs.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Set;
@@ -13,7 +12,6 @@ public class UserStory {
     private String description;
     private int weight;
     private Set<Label> labels;
-    @JsonIgnoreProperties("userStory")
     private Set<Task> tasks;
 
     public UserStory(Builder builder) {

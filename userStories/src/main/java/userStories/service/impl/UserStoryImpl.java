@@ -10,7 +10,6 @@ import userStories.service.UserStoryService;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -21,7 +20,7 @@ public class UserStoryImpl implements UserStoryService {
 
     @Override
     public Iterable<UserStory> getAllUserStories() {
-        return StreamSupport.stream(userStoryRepository.findAll().spliterator(), true)
+        return StreamSupport.stream(userStoryRepository.findAll().spliterator(), false)
                 .map(userStories.models.UserStory::toDTO)
                 .collect(Collectors.toList());
     }
@@ -49,18 +48,20 @@ public class UserStoryImpl implements UserStoryService {
                     userStory.setTitle(updatedUserStory.getTitle());
                     userStory.setDescription(updatedUserStory.getDescription());
                     userStory.setWeight(updatedUserStory.getWeight());
-                    userStory.setLabels(Optional.ofNullable(updatedUserStory.getLabels())
-                            .map(Collection::parallelStream)
-                            .orElseGet(Stream::empty)
+                    userStory.setLabels(Optional.ofNullable(updatedUserStory.getLabels()).stream()
+                            .flatMap(Collection::parallelStream)
                             .map(Label::new)
                             .collect(Collectors.toSet()));
-                    userStory.setTasks(Optional.ofNullable(updatedUserStory.getTasks())
-                            .map(Collection::parallelStream)
-                            .orElseGet(Stream::empty)
+                    userStory.setTasks(Optional.ofNullable(updatedUserStory.getTasks()).stream()
+                            .flatMap(Collection::parallelStream)
                             .map(userStories.models.Task::new)
                             .collect(Collectors.toSet()));
                     return userStoryRepository.save(userStory).toDTO();
                 }).get();
     }
+
+//    private Stream<S> getOptionalSteam(Collection<T> iterable){
+//        return Optional.ofNullable(iterable).stream().flatMap(Collection::parallelStream);
+//    }
 
 }

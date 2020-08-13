@@ -23,7 +23,7 @@ public class UserStory {
             inverseJoinColumns = @JoinColumn(name = "label_id"))
     private Set<Label> labels;
 
-    @OneToMany(mappedBy = "userStory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "userStory", fetch = FetchType.EAGER)
     private Set<Task> tasks;
 
     public UserStory() {

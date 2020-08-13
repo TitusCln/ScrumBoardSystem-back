@@ -8,7 +8,7 @@ public interface TaskService {
 
     Task getById(Long userStoryTask, Long taskId);
 
-    Task create(Task task);
+    Task create(Long userStoryId, Task task);
 
     void deleteById(Long userStoryId, Long taskId);
 
