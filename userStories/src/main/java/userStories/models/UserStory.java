@@ -16,12 +16,15 @@ public class UserStory {
     private String title;
     private String description;
     private Integer weight;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "story_label",
             joinColumns = @JoinColumn(name = "userStory_id"),
             inverseJoinColumns = @JoinColumn(name = "label_id"))
     private Set<Label> labels;
+
+    @OneToMany(mappedBy = "userStory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Task> tasks;
 
     public UserStory() {
     }
@@ -34,7 +37,17 @@ public class UserStory {
         this.labels = Optional.ofNullable(userStory.getLabels()).stream()
                 .flatMap(Collection::parallelStream)
                 .map(Label::new).collect(Collectors.toSet());
+        this.tasks = Optional.ofNullable(userStory.getTasks()).stream()
+                .flatMap(Collection::parallelStream)
+                .map(Task::new).collect(Collectors.toSet());
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -69,6 +82,14 @@ public class UserStory {
         this.labels = labels;
     }
 
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public com.sbs.dto.UserStory toDTO() {
         return new com.sbs.dto.UserStory.Builder()
                 .withId(this.id)
@@ -78,6 +99,12 @@ public class UserStory {
                 .withLabels(this.labels.parallelStream().map(label -> new com.sbs.dto.Label.Builder()
                         .withId(label.getId())
                         .withDescription(label.getDescription())
+                        .build()).collect(Collectors.toSet()))
+                .withTasks(this.tasks.parallelStream().map(task -> new com.sbs.dto.Task.Builder()
+                        .withId(task.getId())
+                        .withDescription(task.getDescription())
+                        .withDuration(task.getDuration())
+//                .withUserStory(Optional.ofNullable(task.getUserStory()).orElse(new UserStory()).toDTO())
                         .build()).collect(Collectors.toSet()))
                 .build();
     }

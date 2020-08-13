@@ -20,30 +20,30 @@ public class UserStoryImpl implements UserStoryService {
     private UserStoryRepository userStoryRepository;
 
     @Override
-    public Iterable<UserStory> getAll() {
-        return StreamSupport.stream(userStoryRepository.findAll().spliterator(),true)
+    public Iterable<UserStory> getAllUserStories() {
+        return StreamSupport.stream(userStoryRepository.findAll().spliterator(), true)
                 .map(userStories.models.UserStory::toDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public UserStory findById(Long id) {
+    public UserStory getUserStoryById(Long id) {
         return userStoryRepository.findById(id).get().toDTO();
     }
 
     @Override
-    public UserStory create(UserStory userStory) {
-        userStories.models.UserStory userStoryToSave=new userStories.models.UserStory(userStory);
+    public UserStory createUserStory(UserStory userStory) {
+        userStories.models.UserStory userStoryToSave = new userStories.models.UserStory(userStory);
         return userStoryRepository.save(userStoryToSave).toDTO();
     }
 
     @Override
-    public void deleteById(Long id){
+    public void deleteUserStoById(Long id) {
         userStoryRepository.deleteById(id);
     }
 
     @Override
-    public UserStory update(UserStory updatedUserStory, Long id) {
+    public UserStory updateUserStory(UserStory updatedUserStory, Long id) {
         return userStoryRepository.findById(id)
                 .map(userStory -> {
                     userStory.setTitle(updatedUserStory.getTitle());
@@ -53,6 +53,11 @@ public class UserStoryImpl implements UserStoryService {
                             .map(Collection::parallelStream)
                             .orElseGet(Stream::empty)
                             .map(Label::new)
+                            .collect(Collectors.toSet()));
+                    userStory.setTasks(Optional.ofNullable(updatedUserStory.getTasks())
+                            .map(Collection::parallelStream)
+                            .orElseGet(Stream::empty)
+                            .map(userStories.models.Task::new)
                             .collect(Collectors.toSet()));
                     return userStoryRepository.save(userStory).toDTO();
                 }).get();
