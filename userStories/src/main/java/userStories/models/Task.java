@@ -68,4 +68,10 @@ public class Task {
                 .withDuration(this.duration)
                 .build();
     }
+
+    public void setIsolatedUserStory(Long userStoryId) {
+        UserStory userStory = new UserStory();
+        userStory.setId(userStoryId);
+        this.userStory = userStory;
+    }
 }

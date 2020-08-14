@@ -16,14 +16,14 @@ public class UserStory {
     private String title;
     private String description;
     private Integer weight;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "story_label",
             joinColumns = @JoinColumn(name = "userStory_id"),
             inverseJoinColumns = @JoinColumn(name = "label_id"))
     private Set<Label> labels;
 
-    @OneToMany(mappedBy = "userStory", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "userStory")
     private Set<Task> tasks;
 
     public UserStory() {
