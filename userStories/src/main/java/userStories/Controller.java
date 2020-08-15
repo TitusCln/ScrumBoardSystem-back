@@ -5,8 +5,8 @@ import com.sbs.dto.UserStory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import userStories.service.TaskService;
-import userStories.service.UserStoryService;
+import userStories.services.TaskService;
+import userStories.services.UserStoryService;
 
 @RestController
 public class Controller {

@@ -1,11 +1,11 @@
-package userStories.service.impl;
+package userStories.services.impl;
 
 import com.sbs.dto.UserStory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import userStories.models.Label;
 import userStories.models.UserStoryRepository;
-import userStories.service.UserStoryService;
+import userStories.services.UserStoryService;
 
 import java.util.Collection;
 import java.util.Optional;

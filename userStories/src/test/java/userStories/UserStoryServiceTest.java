@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import userStories.service.UserStoryService;
+import userStories.services.UserStoryService;
 
 import java.util.stream.StreamSupport;
 

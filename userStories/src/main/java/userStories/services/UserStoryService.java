@@ -1,4 +1,4 @@
-package userStories.service;
+package userStories.services;
 
 import com.sbs.dto.UserStory;
 

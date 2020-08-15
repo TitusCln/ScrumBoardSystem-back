@@ -1,10 +1,10 @@
-package userStories.service.impl;
+package userStories.services.impl;
 
 import com.sbs.dto.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import userStories.models.TaskRepository;
-import userStories.service.TaskService;
+import userStories.services.TaskService;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;

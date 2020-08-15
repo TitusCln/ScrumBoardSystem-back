@@ -9,7 +9,9 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String description;
+    @Column(nullable = false, precision = 1)
     private Double duration;
     @ManyToOne
     @JoinColumn(name = "userstory_id")
