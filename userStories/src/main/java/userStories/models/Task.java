@@ -8,29 +8,70 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private String Description;
+    private Long id;
+    private String description;
+    private Double duration;
+    @ManyToOne
+    @JoinColumn(name = "userstory_id")
+    private UserStory userStory;
 
     public Task() {
     }
 
+    public Task(com.sbs.dto.Task task) {
+        this.id = task.getId();
+        this.description = task.getDescription();
+        this.duration = task.getDuration();
+    }
+
+
     public Task(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
+    }
+
+    public Double getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Double duration) {
+        this.duration = duration;
+    }
+
+    public UserStory getUserStory() {
+        return userStory;
+    }
+
+    public void setUserStory(UserStory userStory) {
+        this.userStory = userStory;
+    }
+
+    public com.sbs.dto.Task toDTO() {
+        return new com.sbs.dto.Task.Builder()
+                .withId(this.id)
+                .withDescription(this.description)
+                .withDuration(this.duration)
+                .build();
+    }
+
+    public void setIsolatedUserStory(Long userStoryId) {
+        UserStory userStory = new UserStory();
+        userStory.setId(userStoryId);
+        this.userStory = userStory;
     }
 }

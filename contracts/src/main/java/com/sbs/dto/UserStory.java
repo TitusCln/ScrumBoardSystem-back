@@ -12,13 +12,15 @@ public class UserStory {
     private String description;
     private int weight;
     private Set<Label> labels;
+    private Set<Task> tasks;
 
     public UserStory(Builder builder) {
-        this.id= builder.id;
-        this.title= builder.title;
-        this.description= builder.description;
-        this.weight= builder.weight;
-        this.labels=builder.labels;
+        this.id = builder.id;
+        this.title = builder.title;
+        this.description = builder.description;
+        this.weight = builder.weight;
+        this.labels = builder.labels;
+        this.tasks = builder.tasks;
     }
 
     public Long getId() {
@@ -61,14 +63,23 @@ public class UserStory {
         this.labels = labels;
     }
 
-    public static class Builder{
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public static class Builder {
         private Long id;
         private String title;
         private String description;
         private Integer weight;
         private Set<Label> labels;
+        private Set<Task> tasks;
 
-        public Builder withId(Long id){
+        public Builder withId(Long id) {
             this.id=id;
             return this;
         }
@@ -83,17 +94,24 @@ public class UserStory {
             return this;
         }
 
-        public Builder withWeight(Integer weight){
-            this.weight=weight;
+        public Builder withWeight(Integer weight) {
+            this.weight = weight;
             return this;
         }
 
-        public Builder withLabels(Set<Label> labels){
-            this.labels=labels;
+        public Builder withLabels(Set<Label> labels) {
+            this.labels = labels;
             return this;
         }
 
-        public UserStory build(){ return new UserStory(this);}
+        public Builder withTasks(Set<Task> tasks) {
+            this.tasks = tasks;
+            return this;
+        }
+
+        public UserStory build() {
+            return new UserStory(this);
+        }
     }
 }
 
