@@ -5,9 +5,9 @@ import com.sbs.dto.Project;
 
 public interface ProjectService {
 
-    Iterable<Project> getAll();
+    Iterable<Project> getAll(Boolean withSprints);
 
-    Project getById(Long id);
+    Project getById(Long id, Boolean withSprints);
 
     Project create(Project project);
 

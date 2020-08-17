@@ -1,13 +1,19 @@
 package com.sbs.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.time.LocalDate;
 
+@JsonDeserialize(builder = Sprint.Builder.class)
 public class Sprint {
 
     private Long id;
     private String name;
     private LocalDate startDate;
     private LocalDate endDate;
+
+    public Sprint() {
+    }
 
     public Sprint(Builder builder) {
         this.id = builder.id;

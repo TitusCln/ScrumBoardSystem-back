@@ -16,8 +16,8 @@ public class SprintServiceImpl implements SprintService {
     private SprintRepository sprintRepository;
 
     @Override
-    public Iterable<Sprint> getAll() {
-        return StreamSupport.stream(sprintRepository.findAll().spliterator(), true)
+    public Iterable<Sprint> getAll(Long projectId) {
+        return StreamSupport.stream(sprintRepository.findByProjectId(projectId).spliterator(), true)
                 .map(projects.models.Sprint::toDTO)
                 .collect(Collectors.toList());
     }

@@ -9,7 +9,7 @@ public class Sprint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
     @Basic
     @Column(nullable = false)

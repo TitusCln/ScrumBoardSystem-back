@@ -4,7 +4,7 @@ import com.sbs.dto.Sprint;
 
 public interface SprintService {
 
-    Iterable<Sprint> getAll();
+    Iterable<Sprint> getAll(Long projectId);
 
     Sprint getById(Long projectId, Long sprintId);
 

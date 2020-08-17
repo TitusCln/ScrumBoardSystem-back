@@ -2,6 +2,7 @@ package projects.models;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table
@@ -40,10 +41,19 @@ public class Project {
         this.name = name;
     }
 
-    public com.sbs.dto.Project toDTO() {
-        return new com.sbs.dto.Project.Builder()
+    public com.sbs.dto.Project toDTO(Boolean withSprints) {
+        com.sbs.dto.Project.Builder builder = new com.sbs.dto.Project.Builder()
                 .withId(this.id)
-                .withName(this.name)
-                .build();
+                .withName(this.name);
+        if (withSprints) {
+            builder.withSprints(this.sprints.parallelStream()
+                    .map(Sprint::toDTO)
+                    .collect(Collectors.toSet()));
+        }
+        return builder.build();
+    }
+
+    public com.sbs.dto.Project toDTO() {
+        return this.toDTO(false);
     }
 }

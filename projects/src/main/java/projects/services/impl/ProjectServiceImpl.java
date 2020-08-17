@@ -16,15 +16,15 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRespository projectRespository;
 
     @Override
-    public Iterable<Project> getAll() {
+    public Iterable<Project> getAll(Boolean witSprints) {
 
         return StreamSupport.stream(projectRespository.findAll().spliterator(), true)
-                .map(projects.models.Project::toDTO)
+                .map(project -> project.toDTO(witSprints))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Project getById(Long id) {
+    public Project getById(Long id, Boolean withSprints) {
         return projectRespository.findById(id).get().toDTO();
     }
 

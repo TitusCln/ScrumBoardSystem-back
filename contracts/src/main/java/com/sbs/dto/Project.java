@@ -1,13 +1,25 @@
 package com.sbs.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import java.util.Set;
+
+@JsonDeserialize(builder = Project.Builder.class)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Project {
 
     private Long id;
     private String name;
+    private Set<Sprint> sprints;
+
+    public Project() {
+    }
 
     public Project(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
+        this.sprints = builder.sprints;
     }
 
     public Long getId() {
@@ -26,9 +38,18 @@ public class Project {
         this.name = name;
     }
 
+    public Set<Sprint> getSprints() {
+        return sprints;
+    }
+
+    public void setSprints(Set<Sprint> sprints) {
+        this.sprints = sprints;
+    }
+
     public static class Builder {
         private Long id;
         private String name;
+        private Set<Sprint> sprints;
 
         public Builder withId(Long id) {
             this.id = id;
@@ -37,6 +58,11 @@ public class Project {
 
         public Builder withName(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder withSprints(Set<Sprint> sprints) {
+            this.sprints = sprints;
             return this;
         }
 

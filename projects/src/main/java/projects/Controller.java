@@ -17,13 +17,13 @@ public class Controller {
     private SprintService sprintService;
 
     @GetMapping(value = "/projects", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Project> getAllProjects() {
-        return projectService.getAll();
+    public Iterable<Project> getAllProjects(@RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
+        return projectService.getAll(withSprints);
     }
 
     @GetMapping(value = "/projects/{projectId}")
-    public Project getProjectById(@PathVariable Long projectId) {
-        return projectService.getById(projectId);
+    public Project getProjectById(@PathVariable Long projectId, @RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
+        return projectService.getById(projectId, withSprints);
     }
 
     @PostMapping(value = "/projects")
@@ -43,7 +43,7 @@ public class Controller {
 
     @GetMapping(value = "/projects/{projectId}/sprints")
     public Iterable<Sprint> getAllSprints(@PathVariable Long projectId) {
-        return sprintService.getAll();
+        return sprintService.getAll(projectId);
     }
 
     @GetMapping(value = "/projects/{projectId}/sprints/{sprintId}")
