@@ -1,16 +1,16 @@
 package userStories.service;
 
-import com.sbs.dto.Task;
+import com.sbs.contracts.dto.TaskDTO;
 
 public interface TaskService {
 
-    Iterable<Task> getAll(Long userStoryId);
+    Iterable<TaskDTO> getAll(Long userStoryId);
 
-    Task getById(Long userStoryTask, Long taskId);
+    TaskDTO getById(Long userStoryTask, Long taskId);
 
-    Task create(Long userStoryId, Task task);
+    TaskDTO create(Long userStoryId, TaskDTO TaskDTO);
 
     void deleteById(Long userStoryId, Long taskId);
 
-    Task updateUserStoryTask(Long userStoryId, Long taskId, Task task);
+    TaskDTO updateUserStoryTask(Long userStoryId, Long taskId, TaskDTO TaskDTO);
 }

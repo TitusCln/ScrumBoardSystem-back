@@ -1,5 +1,7 @@
 package userStories.models;
 
+import com.sbs.contracts.dto.TaskDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,7 +20,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(com.sbs.dto.Task task) {
+    public Task(TaskDTO task) {
         this.id = task.getId();
         this.description = task.getDescription();
         this.duration = task.getDuration();
@@ -61,8 +63,8 @@ public class Task {
         this.userStory = userStory;
     }
 
-    public com.sbs.dto.Task toDTO() {
-        return new com.sbs.dto.Task.Builder()
+    public TaskDTO toDTO() {
+        return new TaskDTO.Builder()
                 .withId(this.id)
                 .withDescription(this.description)
                 .withDuration(this.duration)
