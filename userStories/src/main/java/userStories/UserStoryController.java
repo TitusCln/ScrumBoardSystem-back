@@ -1,7 +1,7 @@
 package userStories;
 
-import com.sbs.dto.Task;
-import com.sbs.dto.UserStory;
+import com.sbs.contracts.dto.TaskDTO;
+import com.sbs.contracts.dto.UserStoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,23 +18,23 @@ public class Controller {
     private TaskService taskService;
 
     @GetMapping(value = "/userstories", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<UserStory> getAllUsersStories() {
+    public Iterable<UserStoryDTO> getAllUsersStories() {
         return userStoryService.getAllUserStories();
     }
 
     @GetMapping(value = "/userstories/{userStoryId}")
-    public UserStory getUserStory(@PathVariable Long userStoryId) {
+    public UserStoryDTO getUserStory(@PathVariable Long userStoryId) {
         return userStoryService.getUserStoryById(userStoryId);
     }
 
     @PostMapping(value = "/userstories")
-    public UserStory createUserStory(@RequestBody UserStory userStory) {
-        return userStoryService.createUserStory(userStory);
+    public UserStoryDTO createUserStory(@RequestBody UserStoryDTO UserStoryDTO) {
+        return userStoryService.createUserStory(UserStoryDTO);
     }
 
     @PutMapping(value = "/userstories/{userStoryId}")
-    public UserStory updateUserStory(@RequestBody UserStory userStory, @PathVariable Long userStoryId) {
-        return userStoryService.updateUserStory(userStory, userStoryId);
+    public UserStoryDTO updateUserStory(@RequestBody UserStoryDTO UserStoryDTO, @PathVariable Long userStoryId) {
+        return userStoryService.updateUserStory(UserStoryDTO, userStoryId);
     }
 
     @DeleteMapping(value = "/userstories/{userStoryId}")
@@ -43,23 +43,23 @@ public class Controller {
     }
 
     @GetMapping(value = "/userstories/{userStoryId}/tasks")
-    public Iterable<Task> getAllTaks(@PathVariable Long userStoryId) {
+    public Iterable<TaskDTO> getAllTaks(@PathVariable Long userStoryId) {
         return taskService.getAll(userStoryId);
     }
 
     @GetMapping(value = "/userstories/{userStoryId}/tasks/{taskId}")
-    public Task getTask(@PathVariable Long userStoryId, @PathVariable Long taskId) {
+    public TaskDTO getTask(@PathVariable Long userStoryId, @PathVariable Long taskId) {
         return taskService.getById(userStoryId, taskId);
     }
 
     @PostMapping(value = "/userstories/{userStoryId}/tasks")
-    public Task createTask(@PathVariable Long userStoryId, @RequestBody Task task) {
-        return taskService.create(userStoryId, task);
+    public TaskDTO createTask(@PathVariable Long userStoryId, @RequestBody TaskDTO TaskDTO) {
+        return taskService.create(userStoryId, TaskDTO);
     }
 
     @PutMapping(value = "/userstories/{userStoryId}/tasks/{taskId}")
-    public Task updateTask(@PathVariable Long userStoryId, @PathVariable Long taskId, @RequestBody Task task) {
-        return taskService.updateUserStoryTask(userStoryId, taskId, task);
+    public TaskDTO updateTask(@PathVariable Long userStoryId, @PathVariable Long taskId, @RequestBody TaskDTO TaskDTO) {
+        return taskService.updateUserStoryTask(userStoryId, taskId, TaskDTO);
     }
 
     @DeleteMapping(value = "/userstories/{userStoryId}/tasks/{taskId}")

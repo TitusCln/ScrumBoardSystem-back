@@ -1,25 +1,25 @@
-package com.sbs.dto;
+package com.sbs.contracts.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(builder = Task.Builder.class)
-public class Task {
+@JsonDeserialize(builder = TaskDTO.Builder.class)
+public class TaskDTO {
 
     private Long id;
     private String description;
     private Double duration;
 
-    public Task() {
+    public TaskDTO() {
     }
 
-    public Task(Builder builder) {
+    public TaskDTO(Builder builder) {
         this.id = builder.id;
         this.description = builder.description;
         this.duration = builder.duration;
     }
 
 
-    public Task(String description, Double duration, UserStory userStory) {
+    public TaskDTO(String description, Double duration, UserStoryDTO userStoryDTO) {
         this.description = description;
         this.duration = duration;
     }
@@ -68,8 +68,8 @@ public class Task {
             return this;
         }
 
-        public Task build() {
-            return new Task(this);
+        public TaskDTO build() {
+            return new TaskDTO(this);
         }
     }
 }
