@@ -1,7 +1,8 @@
 package projects;
 
-import com.sbs.dto.Project;
-import com.sbs.dto.Sprint;
+
+import com.sbs.contracts.dto.ProjectDTO;
+import com.sbs.contracts.dto.SprintDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import projects.services.ProjectService;
 import projects.services.SprintService;
 
 @RestController
-public class Controller {
+public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
@@ -17,22 +18,22 @@ public class Controller {
     private SprintService sprintService;
 
     @GetMapping(value = "/projects", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Project> getAllProjects(@RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
+    public Iterable<ProjectDTO> getAllProjects(@RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
         return projectService.getAll(withSprints);
     }
 
     @GetMapping(value = "/projects/{projectId}")
-    public Project getProjectById(@PathVariable Long projectId, @RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
+    public ProjectDTO getProjectById(@PathVariable Long projectId, @RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
         return projectService.getById(projectId, withSprints);
     }
 
     @PostMapping(value = "/projects")
-    public Project createProject(@RequestBody Project project) {
+    public ProjectDTO createProject(@RequestBody ProjectDTO project) {
         return projectService.create(project);
     }
 
     @PutMapping(value = "/projects/{projectId}")
-    public Project updateProject(@PathVariable Long projectId, @RequestBody Project project) {
+    public ProjectDTO updateProject(@PathVariable Long projectId, @RequestBody ProjectDTO project) {
         return projectService.update(projectId, project);
     }
 
@@ -42,22 +43,22 @@ public class Controller {
     }
 
     @GetMapping(value = "/projects/{projectId}/sprints")
-    public Iterable<Sprint> getAllSprints(@PathVariable Long projectId) {
+    public Iterable<SprintDTO> getAllSprints(@PathVariable Long projectId) {
         return sprintService.getAll(projectId);
     }
 
     @GetMapping(value = "/projects/{projectId}/sprints/{sprintId}")
-    public Sprint getSprint(@PathVariable Long projectId, @PathVariable Long sprintId) {
+    public SprintDTO getSprint(@PathVariable Long projectId, @PathVariable Long sprintId) {
         return sprintService.getById(projectId, sprintId);
     }
 
     @PostMapping(value = "/projects/{projectId}/sprints")
-    public Sprint createSprint(@PathVariable Long projectId, @RequestBody Sprint sprint) {
+    public SprintDTO createSprint(@PathVariable Long projectId, @RequestBody SprintDTO sprint) {
         return sprintService.create(projectId, sprint);
     }
 
     @PutMapping(value = "/projects/{projectId}/sprints/{sprintId}")
-    public Sprint updateSprint(@PathVariable Long projectId, @PathVariable Long sprintId, @RequestBody Sprint sprint) {
+    public SprintDTO updateSprint(@PathVariable Long projectId, @PathVariable Long sprintId, @RequestBody SprintDTO sprint) {
         return sprintService.update(projectId, sprintId, sprint);
     }
 

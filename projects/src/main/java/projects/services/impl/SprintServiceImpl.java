@@ -1,6 +1,6 @@
 package projects.services.impl;
 
-import com.sbs.dto.Sprint;
+import com.sbs.contracts.dto.SprintDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projects.models.SprintRepository;
@@ -16,26 +16,26 @@ public class SprintServiceImpl implements SprintService {
     private SprintRepository sprintRepository;
 
     @Override
-    public Iterable<Sprint> getAll(Long projectId) {
+    public Iterable<SprintDTO> getAll(Long projectId) {
         return StreamSupport.stream(sprintRepository.findByProjectId(projectId).spliterator(), true)
                 .map(projects.models.Sprint::toDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Sprint getById(Long projectId, Long sprintId) {
+    public SprintDTO getById(Long projectId, Long sprintId) {
         return sprintRepository.findById(sprintId).get().toDTO();
     }
 
     @Override
-    public Sprint create(Long projectId, Sprint sprint) {
+    public SprintDTO create(Long projectId, SprintDTO sprint) {
         projects.models.Sprint sprintToCreate = new projects.models.Sprint(sprint);
         sprintToCreate.setIsolatedProject(projectId);
         return sprintRepository.save(sprintToCreate).toDTO();
     }
 
     @Override
-    public Sprint update(Long projectId, Long sprintId, Sprint newSprint) {
+    public SprintDTO update(Long projectId, Long sprintId, SprintDTO newSprint) {
         return sprintRepository.findById(sprintId)
                 .map(sprint -> {
                     sprint.setName(newSprint.getName());

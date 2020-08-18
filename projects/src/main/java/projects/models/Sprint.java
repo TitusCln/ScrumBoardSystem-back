@@ -1,5 +1,7 @@
 package projects.models;
 
+import com.sbs.contracts.dto.SprintDTO;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -25,7 +27,7 @@ public class Sprint {
     public Sprint() {
     }
 
-    public Sprint(com.sbs.dto.Sprint sprint) {
+    public Sprint(SprintDTO sprint) {
         this.id = sprint.getId();
         this.name = sprint.getName();
         this.startDate = sprint.getStartDate();
@@ -72,8 +74,8 @@ public class Sprint {
         this.project = project;
     }
 
-    public com.sbs.dto.Sprint toDTO() {
-        return new com.sbs.dto.Sprint.Builder()
+    public SprintDTO toDTO() {
+        return new SprintDTO.Builder()
                 .withId(this.id)
                 .withName(this.name)
                 .withStartDate(this.startDate)

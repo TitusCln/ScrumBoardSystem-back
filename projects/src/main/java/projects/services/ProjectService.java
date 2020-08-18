@@ -1,17 +1,16 @@
 package projects.services;
 
-
-import com.sbs.dto.Project;
+import com.sbs.contracts.dto.ProjectDTO;
 
 public interface ProjectService {
 
-    Iterable<Project> getAll(Boolean withSprints);
+    Iterable<ProjectDTO> getAll(Boolean withSprints);
 
-    Project getById(Long id, Boolean withSprints);
+    ProjectDTO getById(Long id, Boolean withSprints);
 
-    Project create(Project project);
+    ProjectDTO create(ProjectDTO ProjectDTO);
 
-    Project update(Long id, Project project);
+    ProjectDTO update(Long id, ProjectDTO ProjectDTO);
 
     void deleteById(Long id);
 }

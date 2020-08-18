@@ -1,16 +1,16 @@
 package projects.services;
 
-import com.sbs.dto.Sprint;
+import com.sbs.contracts.dto.SprintDTO;
 
 public interface SprintService {
 
-    Iterable<Sprint> getAll(Long projectId);
+    Iterable<SprintDTO> getAll(Long projectId);
 
-    Sprint getById(Long projectId, Long sprintId);
+    SprintDTO getById(Long projectId, Long sprintId);
 
-    Sprint create(Long projectId, Sprint sprint);
+    SprintDTO create(Long projectId, SprintDTO SprintDTO);
 
-    Sprint update(Long projectId, Long sprintId, Sprint sprint);
+    SprintDTO update(Long projectId, Long sprintId, SprintDTO SprintDTO);
 
     void delete(Long projectId, Long sprintId);
 }

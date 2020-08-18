@@ -1,6 +1,6 @@
 package projects.services.impl;
 
-import com.sbs.dto.Project;
+import com.sbs.contracts.dto.ProjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projects.models.ProjectRespository;
@@ -16,7 +16,7 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRespository projectRespository;
 
     @Override
-    public Iterable<Project> getAll(Boolean witSprints) {
+    public Iterable<ProjectDTO> getAll(Boolean witSprints) {
 
         return StreamSupport.stream(projectRespository.findAll().spliterator(), true)
                 .map(project -> project.toDTO(witSprints))
@@ -24,17 +24,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project getById(Long id, Boolean withSprints) {
+    public ProjectDTO getById(Long id, Boolean withSprints) {
         return projectRespository.findById(id).get().toDTO();
     }
 
     @Override
-    public Project create(Project project) {
+    public ProjectDTO create(ProjectDTO project) {
         return projectRespository.save(new projects.models.Project(project)).toDTO();
     }
 
     @Override
-    public Project update(Long id, Project newProject) {
+    public ProjectDTO update(Long id, ProjectDTO newProject) {
         return projectRespository.findById(id).map(project -> {
             project.setName(newProject.getName());
             return projectRespository.save(project).toDTO();

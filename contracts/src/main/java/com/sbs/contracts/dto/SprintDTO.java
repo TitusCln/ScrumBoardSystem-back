@@ -1,21 +1,21 @@
-package com.sbs.dto;
+package com.sbs.contracts.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDate;
 
-@JsonDeserialize(builder = Sprint.Builder.class)
-public class Sprint {
+@JsonDeserialize(builder = SprintDTO.Builder.class)
+public class SprintDTO {
 
     private Long id;
     private String name;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public Sprint() {
+    public SprintDTO() {
     }
 
-    public Sprint(Builder builder) {
+    public SprintDTO(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.startDate = builder.startDate;
@@ -80,8 +80,8 @@ public class Sprint {
             return this;
         }
 
-        public Sprint build() {
-            return new Sprint(this);
+        public SprintDTO build() {
+            return new SprintDTO(this);
         }
     }
 }

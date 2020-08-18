@@ -1,25 +1,25 @@
-package com.sbs.dto;
+package com.sbs.contracts.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Set;
 
-@JsonDeserialize(builder = Project.Builder.class)
+@JsonDeserialize(builder = ProjectDTO.Builder.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Project {
+public class ProjectDTO {
 
     private Long id;
     private String name;
-    private Set<Sprint> sprints;
+    private Set<SprintDTO> sprintDTOS;
 
-    public Project() {
+    public ProjectDTO() {
     }
 
-    public Project(Builder builder) {
+    public ProjectDTO(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
-        this.sprints = builder.sprints;
+        this.sprintDTOS = builder.sprintDTOS;
     }
 
     public Long getId() {
@@ -38,18 +38,18 @@ public class Project {
         this.name = name;
     }
 
-    public Set<Sprint> getSprints() {
-        return sprints;
+    public Set<SprintDTO> getSprints() {
+        return sprintDTOS;
     }
 
-    public void setSprints(Set<Sprint> sprints) {
-        this.sprints = sprints;
+    public void setSprints(Set<SprintDTO> sprintDTOS) {
+        this.sprintDTOS = sprintDTOS;
     }
 
     public static class Builder {
         private Long id;
         private String name;
-        private Set<Sprint> sprints;
+        private Set<SprintDTO> sprintDTOS;
 
         public Builder withId(Long id) {
             this.id = id;
@@ -61,13 +61,13 @@ public class Project {
             return this;
         }
 
-        public Builder withSprints(Set<Sprint> sprints) {
-            this.sprints = sprints;
+        public Builder withSprints(Set<SprintDTO> sprintDTOS) {
+            this.sprintDTOS = sprintDTOS;
             return this;
         }
 
-        public Project build() {
-            return new Project(this);
+        public ProjectDTO build() {
+            return new ProjectDTO(this);
         }
     }
 }

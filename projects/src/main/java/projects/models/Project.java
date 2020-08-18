@@ -1,5 +1,7 @@
 package projects.models;
 
+import com.sbs.contracts.dto.ProjectDTO;
+
 import javax.persistence.*;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,7 +22,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(com.sbs.dto.Project project) {
+    public Project(ProjectDTO project) {
         this.id = project.getId();
         this.name = project.getName();
     }
@@ -41,8 +43,8 @@ public class Project {
         this.name = name;
     }
 
-    public com.sbs.dto.Project toDTO(Boolean withSprints) {
-        com.sbs.dto.Project.Builder builder = new com.sbs.dto.Project.Builder()
+    public ProjectDTO toDTO(Boolean withSprints) {
+        ProjectDTO.Builder builder = new ProjectDTO.Builder()
                 .withId(this.id)
                 .withName(this.name);
         if (withSprints) {
@@ -53,7 +55,7 @@ public class Project {
         return builder.build();
     }
 
-    public com.sbs.dto.Project toDTO() {
+    public ProjectDTO toDTO() {
         return this.toDTO(false);
     }
 }
