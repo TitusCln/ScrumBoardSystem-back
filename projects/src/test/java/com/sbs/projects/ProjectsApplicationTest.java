@@ -3,15 +3,25 @@
  */
 package com.sbs.projects;
 
+import com.sbs.contracts.clients.UserStoryFeign;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.logging.Logger;
+
 @RunWith(SpringRunner.class)
-@ComponentScan(basePackages = "userStories")
-@SpringBootTest(classes = ProjectsApplication.class)
+@ComponentScan(basePackages = "com.sbs")
 public class ProjectsApplicationTest {
 
+    private static Logger logger = Logger.getLogger(ProjectsApplicationTest.class.getSimpleName());
+    @Autowired
+    private UserStoryFeign userStoryFeign;
 
+    @Test
+    public void logger() {
+        userStoryFeign.getAllUsersStories().forEach(userStoryDTO -> logger.info(userStoryDTO::toString));
+    }
 }

@@ -2,11 +2,11 @@ package com.sbs.userStories;
 
 import com.sbs.contracts.dto.TaskDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
+import com.sbs.userStories.services.TaskService;
+import com.sbs.userStories.services.UserStoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import userStories.service.TaskService;
-import userStories.service.UserStoryService;
 
 @RestController
 public class UserStoryController {

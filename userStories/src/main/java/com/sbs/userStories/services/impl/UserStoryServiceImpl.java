@@ -5,9 +5,9 @@ import com.sbs.userStories.models.Label;
 import com.sbs.userStories.models.Task;
 import com.sbs.userStories.models.UserStory;
 import com.sbs.userStories.models.UserStoryRepository;
+import com.sbs.userStories.services.UserStoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import userStories.service.UserStoryService;
 
 import java.util.HashSet;
 import java.util.Optional;

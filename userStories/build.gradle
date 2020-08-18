@@ -28,5 +28,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'userStories.UserStoriesApplication'
+    mainClassName = 'com.sbs.userStories.UserStoriesApplication'
 }
