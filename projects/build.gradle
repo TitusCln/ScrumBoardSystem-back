@@ -26,5 +26,5 @@ dependencies {
 }
 
 application {
-    mainClassName = 'projects.ProjectsApplication'
+    mainClassName = 'com.sbs.projects.ProjectsApplication'
 }
