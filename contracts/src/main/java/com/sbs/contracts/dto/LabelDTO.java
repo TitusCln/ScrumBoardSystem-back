@@ -1,22 +1,22 @@
-package com.sbs.dto;
+package com.sbs.contracts.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(builder = Label.Builder.class)
-public class Label {
+@JsonDeserialize(builder = LabelDTO.Builder.class)
+public class LabelDTO {
 
     private Long id;
     private String description;
 
-    public Label() {
+    public LabelDTO() {
     }
 
-    public Label(Long id, String description) {
+    public LabelDTO(Long id, String description) {
         this.id = id;
         this.description = description;
     }
 
-    public Label(Builder builder) {
+    public LabelDTO(Builder builder) {
         this.id= builder.id;
         this.description= builder.description;
     }
@@ -52,6 +52,6 @@ public class Label {
             return this;
         }
 
-        public Label build(){ return new Label(this);}
+        public LabelDTO build(){ return new LabelDTO(this);}
     }
 }

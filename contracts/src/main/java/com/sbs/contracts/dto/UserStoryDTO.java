@@ -1,26 +1,26 @@
-package com.sbs.dto;
+package com.sbs.contracts.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Set;
 
-@JsonDeserialize(builder = UserStory.Builder.class)
-public class UserStory {
+@JsonDeserialize(builder = UserStoryDTO.Builder.class)
+public class UserStoryDTO {
 
     private Long id;
     private String title;
     private String description;
     private int weight;
-    private Set<Label> labels;
-    private Set<Task> tasks;
+    private Set<LabelDTO> labelDTOS;
+    private Set<TaskDTO> taskDTOS;
 
-    public UserStory(Builder builder) {
+    public UserStoryDTO(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;
         this.description = builder.description;
         this.weight = builder.weight;
-        this.labels = builder.labels;
-        this.tasks = builder.tasks;
+        this.labelDTOS = builder.labelDTOS;
+        this.taskDTOS = builder.taskDTOS;
     }
 
     public Long getId() {
@@ -55,20 +55,20 @@ public class UserStory {
         this.weight = weight;
     }
 
-    public Set<Label> getLabels() {
-        return labels;
+    public Set<LabelDTO> getLabels() {
+        return labelDTOS;
     }
 
-    public void setLabels(Set<Label> labels) {
-        this.labels = labels;
+    public void setLabels(Set<LabelDTO> labelDTOS) {
+        this.labelDTOS = labelDTOS;
     }
 
-    public Set<Task> getTasks() {
-        return tasks;
+    public Set<TaskDTO> getTasks() {
+        return taskDTOS;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setTasks(Set<TaskDTO> taskDTOS) {
+        this.taskDTOS = taskDTOS;
     }
 
     public static class Builder {
@@ -76,8 +76,8 @@ public class UserStory {
         private String title;
         private String description;
         private Integer weight;
-        private Set<Label> labels;
-        private Set<Task> tasks;
+        private Set<LabelDTO> labelDTOS;
+        private Set<TaskDTO> taskDTOS;
 
         public Builder withId(Long id) {
             this.id=id;
@@ -99,18 +99,18 @@ public class UserStory {
             return this;
         }
 
-        public Builder withLabels(Set<Label> labels) {
-            this.labels = labels;
+        public Builder withLabels(Set<LabelDTO> labelDTOS) {
+            this.labelDTOS = labelDTOS;
             return this;
         }
 
-        public Builder withTasks(Set<Task> tasks) {
-            this.tasks = tasks;
+        public Builder withTasks(Set<TaskDTO> taskDTOS) {
+            this.taskDTOS = taskDTOS;
             return this;
         }
 
-        public UserStory build() {
-            return new UserStory(this);
+        public UserStoryDTO build() {
+            return new UserStoryDTO(this);
         }
     }
 }

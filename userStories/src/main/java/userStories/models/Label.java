@@ -1,5 +1,7 @@
 package userStories.models;
 
+import com.sbs.contracts.dto.LabelDTO;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -19,7 +21,7 @@ public class Label {
     public Label() {
     }
 
-    public Label(com.sbs.dto.Label label) {
+    public Label(LabelDTO label) {
         this.id = label.getId();
         this.description = label.getDescription();
     }

@@ -3,17 +3,26 @@ plugins {
     id 'maven'
 }
 
-group = 'com.sbs.dto'
+// versioning information, project name is in settings.gradle
+group = 'com.sbs.contracts'
 version = '1.0.0'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 repositories {
+    // Use jcenter for resolving dependencies.
+    // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
 
 dependencies {
+    // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.10.1'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:2.2.3.RELEASE'
 
+    // Use JUnit test framework
     testImplementation 'junit:junit:4.13'
 }
 
