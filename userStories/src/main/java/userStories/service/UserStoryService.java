@@ -1,17 +1,17 @@
 package userStories.service;
 
-import com.sbs.dto.UserStory;
+import com.sbs.contracts.dto.UserStoryDTO;
 
 public interface UserStoryService {
 
-    Iterable<UserStory> getAllUserStories();
+    Iterable<UserStoryDTO> getAllUserStories();
 
-    UserStory getUserStoryById(Long id);
+    UserStoryDTO getUserStoryById(Long id);
 
-    UserStory createUserStory(UserStory userStory);
+    UserStoryDTO createUserStory(UserStoryDTO userStory);
 
     void deleteUserStoById(Long id);
 
-    UserStory updateUserStory(UserStory userStory, Long id);
+    UserStoryDTO updateUserStory(UserStoryDTO userStory, Long id);
 
 }

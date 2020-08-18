@@ -3,7 +3,7 @@
  */
 package userStories;
 
-import com.sbs.dto.UserStory;
+import com.sbs.contracts.dto.UserStoryDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,14 +23,14 @@ public class UserStoryServiceTest {
 
     @Test
     public void testUserStoryCreation() {
-        UserStory storyToAdd = new UserStory.Builder()
+        UserStoryDTO storyToAdd = new UserStoryDTO.Builder()
                 .withDescription("Description")
                 .withTitle("Title")
                 .withWeight(0)
                 .withLabels(null)
                 .withTasks(null)
                 .build();
-        UserStory userStoryCreated = userStoryService.createUserStory(storyToAdd);
+        UserStoryDTO userStoryCreated = userStoryService.createUserStory(storyToAdd);
         Assert.assertNotNull(userStoryCreated);
         Assert.assertTrue(userStoryCreated.getLabels().isEmpty());
         Assert.assertTrue(userStoryCreated.getTasks().isEmpty());
@@ -39,7 +39,7 @@ public class UserStoryServiceTest {
 
     @Test
     public void testGetAllUsersStories() {
-        UserStory storyToAdd = new UserStory.Builder()
+        UserStoryDTO storyToAdd = new UserStoryDTO.Builder()
                 .withDescription("Description")
                 .withTitle("Title")
                 .withWeight(0)
@@ -50,6 +50,6 @@ public class UserStoryServiceTest {
         userStoryService.createUserStory(storyToAdd);
         userStoryService.createUserStory(storyToAdd);
         userStoryService.createUserStory(storyToAdd);
-        Assert.assertEquals(4, StreamSupport.stream(userStoryService.getAllUserStories().spliterator(), false).count());
+        Assert.assertEquals(14, StreamSupport.stream(userStoryService.getAllUserStories().spliterator(), false).count());
     }
 }

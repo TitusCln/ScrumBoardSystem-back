@@ -25,7 +25,7 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
-     implementation 'com.sbs.dto:contracts:1.0.0'
+     implementation 'com.sbs.contracts:contracts:1.0.0'
     // Use JUnit test framework
     testImplementation 'junit:junit:4.13'
     implementation 'org.springframework.boot:spring-boot-starter-web'
