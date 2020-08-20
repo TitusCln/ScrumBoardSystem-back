@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Service
 @FeignClient(name = "userStory", url = "${endpoint-userstory-service}")
-public interface UserStoryFeign {
+public interface UserStoryProxy {
   static final String prefix = "/userstories";
 
   @RequestMapping(method = RequestMethod.GET, value = prefix)
