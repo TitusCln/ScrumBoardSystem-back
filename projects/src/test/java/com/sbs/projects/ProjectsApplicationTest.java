@@ -3,25 +3,18 @@
  */
 package com.sbs.projects;
 
-import com.sbs.contracts.clients.UserStoryFeign;
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.logging.Logger;
 
-@RunWith(SpringRunner.class)
-@ComponentScan(basePackages = "com.sbs")
 public class ProjectsApplicationTest {
-
-    private static Logger logger = Logger.getLogger(ProjectsApplicationTest.class.getSimpleName());
-    @Autowired
-    private UserStoryFeign userStoryFeign;
+    private static final Logger logger = LoggerFactory.getLogger(ProjectsApplicationTest.class);
 
     @Test
-    public void logger() {
-        userStoryFeign.getAllUsersStories().forEach(userStoryDTO -> logger.info(userStoryDTO::toString));
+    public void simpleTest() {
+        logger.info("Simple test");
+        Assert.assertEquals(1,1);
     }
 }

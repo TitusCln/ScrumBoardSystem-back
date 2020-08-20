@@ -1,21 +1,34 @@
 package com.sbs.projects;
 
-
+import com.sbs.contracts.clients.UserStoryProxy;
 import com.sbs.contracts.dto.ProjectDTO;
 import com.sbs.contracts.dto.SprintDTO;
+import com.sbs.contracts.dto.UserStoryDTO;
 import com.sbs.projects.services.ProjectService;
 import com.sbs.projects.services.SprintService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProjectController {
+    private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
     @Autowired
     private ProjectService projectService;
     @Autowired
     private SprintService sprintService;
+    @Autowired
+    private UserStoryProxy userStoryProxy;
+
+    // TODO - Code added for testing purposes, delete once tested
+    @GetMapping(value = "/projects/userstories", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<UserStoryDTO> getALlUserStories(){
+        logger.info("Hitting getAllUserStories");
+        return userStoryProxy.getAllUsersStories();
+    }
 
     @GetMapping(value = "/com/sbs/projects", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<ProjectDTO> getAllProjects(@RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
