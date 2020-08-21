@@ -3,11 +3,7 @@ package com.sbs.contracts.clients;
 import com.sbs.contracts.dto.TaskDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "userStory", url = "${endpoint-userstory-service}")
 public interface UserStoryProxy {
@@ -35,8 +31,11 @@ public interface UserStoryProxy {
   TaskDTO createTask(@PathVariable(value = "userStoryId") Long userStoryId, @RequestBody TaskDTO TaskDTO);
 
   @RequestMapping(method = RequestMethod.PUT, value = prefix + "/{userStoryId}/tasks/{taskId}")
-  public TaskDTO updateTask(@PathVariable(value = "userStoryId")Long userStoryId, @PathVariable(value = "taskId") Long taskId, @RequestBody TaskDTO TaskDTO);
+  public TaskDTO updateTask(@PathVariable(value = "userStoryId") Long userStoryId, @PathVariable(value = "taskId") Long taskId, @RequestBody TaskDTO TaskDTO);
 
   @RequestMapping(method = RequestMethod.DELETE, value = prefix + "/{userStoryId}/tasks/{taskId}")
   public void deleteTask(@PathVariable(value = "userStoryId") Long userStoryId, @PathVariable(value = "taskId") Long taskId);
+
+  @RequestMapping(method = RequestMethod.GET, value = prefix, params = {"ids"})
+  public Iterable<UserStoryDTO> getProjectUserStories(@RequestParam(value = "ids") Long[] ids);
 }

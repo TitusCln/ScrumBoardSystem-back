@@ -1,6 +1,5 @@
 package com.sbs.projects;
 
-import com.sbs.contracts.clients.UserStoryProxy;
 import com.sbs.contracts.dto.ProjectDTO;
 import com.sbs.contracts.dto.SprintDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
@@ -20,8 +19,6 @@ public class ProjectController {
     private ProjectService projectService;
     @Autowired
     private SprintService sprintService;
-    @Autowired
-    private UserStoryProxy userStoryProxy;
 
     @GetMapping(value = "/projects", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<ProjectDTO> getAllProjects(@RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
@@ -73,17 +70,13 @@ public class ProjectController {
         sprintService.delete(projectId, sprintId);
     }
 
-    // TODO - Code added for testing purposes, delete once tested
-    @GetMapping(value = "/projects/userstories", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<UserStoryDTO> getALlUserStories() {
-        logger.info("Hitting getAllUserStories");
-        return userStoryProxy.getAllUsersStories();
+    @GetMapping(value = "/projects/{projectId}/userstories", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<UserStoryDTO> getProjectUserStories(@PathVariable Long projectId) {
+        return projectService.getProjectsUserStory(projectId);
     }
 
     @PostMapping(value = "/projects/{projectId}/userstories")
     public UserStoryDTO createProjectUserStory(@PathVariable Long projectId, @RequestBody UserStoryDTO userStoryDTO) {
-        UserStoryDTO storyCreated = userStoryProxy.createUserStory(userStoryDTO);
-        //TODO create relationship tuple with the UserStoryId from storyCreated
-        return storyCreated;
+        return projectService.createProjectUserStory(projectId, userStoryDTO);
     }
 }

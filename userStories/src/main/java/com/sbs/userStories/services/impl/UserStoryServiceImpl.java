@@ -54,17 +54,24 @@ public class UserStoryServiceImpl implements UserStoryService {
               .orElse(new HashSet<>())
               .parallelStream()
               .map(Label::new)
-              .collect(Collectors.toSet()));
-          userStory.setTasks(Optional.ofNullable(updatedUserStory.getTasks())
-              .orElse(new HashSet<>())
-              .parallelStream()
-              .map(Task::new)
-              .collect(Collectors.toSet()));
-          return userStoryRepository.save(userStory).toDTO();
+                  .collect(Collectors.toSet()));
+            userStory.setTasks(Optional.ofNullable(updatedUserStory.getTasks())
+                    .orElse(new HashSet<>())
+                    .parallelStream()
+                    .map(Task::new)
+                    .collect(Collectors.toSet()));
+            return userStoryRepository.save(userStory).toDTO();
         }).get();
   }
 
-//    private Stream<S> getOptionalSteam(Collection<T> iterable){
+    @Override
+    public Iterable<UserStoryDTO> getByIds(Iterable<Long> ids) {
+        return StreamSupport.stream(userStoryRepository.findAllById(ids).spliterator(), true)
+                .map(UserStory::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    //    private Stream<S> getOptionalSteam(Collection<T> iterable){
 //        return Optional.ofNullable(iterable).stream().flatMap(Collection::parallelStream);
 //    }
 

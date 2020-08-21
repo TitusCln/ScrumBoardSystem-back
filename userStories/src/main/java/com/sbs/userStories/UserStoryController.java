@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 @RestController
 public class UserStoryController {
 
@@ -20,6 +22,11 @@ public class UserStoryController {
   @GetMapping(value = "/userstories", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<UserStoryDTO> getAllUsersStories() {
     return userStoryService.getAllUserStories();
+  }
+
+  @GetMapping(value = "/userstories", produces = MediaType.APPLICATION_JSON_VALUE, params = {"ids"})
+  public Iterable<UserStoryDTO> getUsersStoriesByIds(@RequestParam Long[] ids) {
+    return userStoryService.getByIds(Arrays.asList(ids));
   }
 
   @GetMapping(value = "/userstories/{userStoryId}")

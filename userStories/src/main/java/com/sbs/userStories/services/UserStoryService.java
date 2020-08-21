@@ -14,4 +14,6 @@ public interface UserStoryService {
 
     UserStoryDTO updateUserStory(UserStoryDTO userStory, Long id);
 
+    Iterable<UserStoryDTO> getByIds(Iterable<Long> ids);
+
 }
