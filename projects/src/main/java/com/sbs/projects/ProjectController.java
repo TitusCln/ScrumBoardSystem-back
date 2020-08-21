@@ -23,60 +23,67 @@ public class ProjectController {
     @Autowired
     private UserStoryProxy userStoryProxy;
 
-    // TODO - Code added for testing purposes, delete once tested
-    @GetMapping(value = "/projects/userstories", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<UserStoryDTO> getALlUserStories(){
-        logger.info("Hitting getAllUserStories");
-        return userStoryProxy.getAllUsersStories();
-    }
-
-    @GetMapping(value = "/com/sbs/projects", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/projects", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<ProjectDTO> getAllProjects(@RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
         return projectService.getAll(withSprints);
     }
 
-    @GetMapping(value = "/com/sbs/projects/{projectId}")
+    @GetMapping(value = "/projects/{projectId}")
     public ProjectDTO getProjectById(@PathVariable Long projectId, @RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
         return projectService.getById(projectId, withSprints);
     }
 
-    @PostMapping(value = "/com/sbs/projects")
+    @PostMapping(value = "/projects")
     public ProjectDTO createProject(@RequestBody ProjectDTO project) {
         return projectService.create(project);
     }
 
-    @PutMapping(value = "/com/sbs/projects/{projectId}")
+    @PutMapping(value = "/projects/{projectId}")
     public ProjectDTO updateProject(@PathVariable Long projectId, @RequestBody ProjectDTO project) {
         return projectService.update(projectId, project);
     }
 
-    @DeleteMapping(value = "/com/sbs/projects/{projectId}")
+    @DeleteMapping(value = "/projects/{projectId}")
     public void deleteProject(@PathVariable Long projectId) {
         projectService.deleteById(projectId);
     }
 
-    @GetMapping(value = "/com/sbs/projects/{projectId}/sprints")
+    @GetMapping(value = "/projects/{projectId}/sprints")
     public Iterable<SprintDTO> getAllSprints(@PathVariable Long projectId) {
         return sprintService.getAll(projectId);
     }
 
-    @GetMapping(value = "/com/sbs/projects/{projectId}/sprints/{sprintId}")
+    @GetMapping(value = "/projects/{projectId}/sprints/{sprintId}")
     public SprintDTO getSprint(@PathVariable Long projectId, @PathVariable Long sprintId) {
         return sprintService.getById(projectId, sprintId);
     }
 
-    @PostMapping(value = "/com/sbs/projects/{projectId}/sprints")
+    @PostMapping(value = "/projects/{projectId}/sprints")
     public SprintDTO createSprint(@PathVariable Long projectId, @RequestBody SprintDTO sprint) {
         return sprintService.create(projectId, sprint);
     }
 
-    @PutMapping(value = "/com/sbs/projects/{projectId}/sprints/{sprintId}")
+    @PutMapping(value = "/projects/{projectId}/sprints/{sprintId}")
     public SprintDTO updateSprint(@PathVariable Long projectId, @PathVariable Long sprintId, @RequestBody SprintDTO sprint) {
         return sprintService.update(projectId, sprintId, sprint);
     }
 
-    @DeleteMapping(value = "/com/sbs/projects/{projectId}/sprints/{sprintId}")
+    @DeleteMapping(value = "/projects/{projectId}/sprints/{sprintId}")
     public void deleteSprint(@PathVariable Long projectId, @PathVariable Long sprintId) {
         sprintService.delete(projectId, sprintId);
+    }
+
+    // TODO - Code added for testing purposes, delete once tested
+    @GetMapping(value = "/projects/userstories", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<UserStoryDTO> getALlUserStories() {
+        logger.info("Hitting getAllUserStories");
+        return userStoryProxy.getAllUsersStories();
+    }
+
+    @PostMapping(value = "/projects/{projectId}/userstories")
+    public UserStoryDTO createProjectUserStory(@PathVariable Long projectId, @RequestBody UserStoryDTO userStoryDTO) {
+        UserStoryDTO storyCreated = userStoryProxy.createUserStory(userStoryDTO);
+        //TODO create relationship tuple with the UserStoryId from storyCreated
+        return storyCreated;
     }
 }
