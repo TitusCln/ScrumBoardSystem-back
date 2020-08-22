@@ -3,7 +3,13 @@ package com.sbs.contracts.clients;
 import com.sbs.contracts.dto.TaskDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @FeignClient(name = "userStory", url = "${endpoint-userstory-service}")
 public interface UserStoryProxy {
@@ -37,5 +43,5 @@ public interface UserStoryProxy {
   public void deleteTask(@PathVariable(value = "userStoryId") Long userStoryId, @PathVariable(value = "taskId") Long taskId);
 
   @RequestMapping(method = RequestMethod.GET, value = prefix, params = {"ids"})
-  public Iterable<UserStoryDTO> getProjectUserStories(@RequestParam(value = "ids") Long[] ids);
+  public Iterable<UserStoryDTO> getUserStoriesByIds(@RequestParam(value = "ids") List<Long> ids);
 }

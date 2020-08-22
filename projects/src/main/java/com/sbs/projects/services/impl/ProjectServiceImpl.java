@@ -4,8 +4,8 @@ import com.sbs.contracts.clients.UserStoryProxy;
 import com.sbs.contracts.dto.ProjectDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
 import com.sbs.projects.models.ProjectRespository;
-import com.sbs.projects.models.ProjectSprint;
-import com.sbs.projects.models.ProjectSprintRepository;
+import com.sbs.projects.models.ProjectUserStory;
+import com.sbs.projects.models.ProjectUserStoryRepository;
 import com.sbs.projects.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRespository projectRespository;
 
     @Autowired
-    private ProjectSprintRepository projectSprintRepository;
+    private ProjectUserStoryRepository projectUserStoryRepository;
 
     @Autowired
     private UserStoryProxy userStoryProxy;
@@ -60,19 +60,24 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public UserStoryDTO createProjectUserStory(Long projectId, UserStoryDTO userStoryDTO) {
         UserStoryDTO storyCreated = userStoryProxy.createUserStory(userStoryDTO);
-        ProjectSprint projectSprint = new ProjectSprint();
-        projectSprint.setIsolatedProjectId(projectId);
-        projectSprint.setSprintId(storyCreated.getId());
-        projectSprintRepository.save(projectSprint);
+        ProjectUserStory projectUserStory = new ProjectUserStory();
+        projectUserStory.setIsolatedProjectId(projectId);
+        projectUserStory.setUserStoryId(storyCreated.getId());
+        projectUserStoryRepository.save(projectUserStory);
         return storyCreated;
     }
 
     @Override
-    public Iterable<UserStoryDTO> getProjectsUserStory(Long projectId) {
-        List<Long> sprintIds = StreamSupport.stream(projectSprintRepository.findByProjectId(projectId).spliterator(), true)
-                .map(ProjectSprint::getSprintId)
+    public Iterable<UserStoryDTO> getProjectUserStories(Long projectId) {
+        List<Long> sprintIds = StreamSupport.stream(projectUserStoryRepository.findByProjectId(projectId).spliterator(), true)
+                .map(ProjectUserStory::getUserStoryId)
                 .collect(Collectors.toList());
-        Long[] ids = new Long[sprintIds.size()];
-        return userStoryProxy.getProjectUserStories(sprintIds.toArray(ids));
+        return userStoryProxy.getUserStoriesByIds(sprintIds);
+    }
+
+    @Override
+    public void deleteProjectUserStory(Long projectId, Long userStoryId) {
+        projectUserStoryRepository.deleteById(userStoryId);
+        userStoryProxy.deleteUserStory(userStoryId);
     }
 }

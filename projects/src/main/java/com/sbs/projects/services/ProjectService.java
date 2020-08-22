@@ -17,5 +17,7 @@ public interface ProjectService {
 
     UserStoryDTO createProjectUserStory(Long projectId, UserStoryDTO userStoryDTO);
 
-    Iterable<UserStoryDTO> getProjectsUserStory(Long projectId);
+    Iterable<UserStoryDTO> getProjectUserStories(Long projectId);
+
+    void deleteProjectUserStory(Long projectId, Long userStoryId);
 }

@@ -71,8 +71,4 @@ public class UserStoryServiceImpl implements UserStoryService {
                 .collect(Collectors.toList());
     }
 
-    //    private Stream<S> getOptionalSteam(Collection<T> iterable){
-//        return Optional.ofNullable(iterable).stream().flatMap(Collection::parallelStream);
-//    }
-
 }
