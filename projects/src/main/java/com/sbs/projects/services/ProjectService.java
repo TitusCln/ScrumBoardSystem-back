@@ -1,6 +1,7 @@
 package com.sbs.projects.services;
 
 import com.sbs.contracts.dto.ProjectDTO;
+import com.sbs.contracts.dto.SprintUserStoryDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
 
 public interface ProjectService {
@@ -20,4 +21,7 @@ public interface ProjectService {
     Iterable<UserStoryDTO> getProjectUserStories(Long projectId);
 
     void deleteProjectUserStory(Long projectId, Long userStoryId);
+
+    SprintUserStoryDTO getSprintUserStoryByUserStoryId(Long userStoryId);
+
 }

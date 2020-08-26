@@ -2,6 +2,7 @@ package com.sbs.projects;
 
 import com.sbs.contracts.dto.ProjectDTO;
 import com.sbs.contracts.dto.SprintDTO;
+import com.sbs.contracts.dto.SprintUserStoryDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
 import com.sbs.projects.services.ProjectService;
 import com.sbs.projects.services.SprintService;
@@ -90,5 +91,10 @@ public class ProjectController {
     @DeleteMapping(value = "/projects/{projectId}/userstories/{userStoryId}")
     public void deleteProjectUserStory(@PathVariable Long projectId, @PathVariable Long userStoryId) {
         projectService.deleteProjectUserStory(projectId, userStoryId);
+    }
+
+    @GetMapping(value = "/projects/sprints/{userStoryId}")
+    public SprintUserStoryDTO getSprintByUserStoryId(@PathVariable Long userStoryId){
+        return projectService.getSprintUserStoryByUserStoryId(userStoryId);
     }
 }
