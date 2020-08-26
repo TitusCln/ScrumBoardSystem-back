@@ -2,10 +2,13 @@ package com.sbs.projects.services.impl;
 
 import com.sbs.contracts.clients.UserStoryProxy;
 import com.sbs.contracts.dto.ProjectDTO;
+import com.sbs.contracts.dto.SprintUserStoryDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
 import com.sbs.projects.models.ProjectRespository;
 import com.sbs.projects.models.ProjectUserStory;
 import com.sbs.projects.models.ProjectUserStoryRepository;
+import com.sbs.projects.models.SprintUserStory;
+import com.sbs.projects.models.SprintUserStoryRepository;
 import com.sbs.projects.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectUserStoryRepository projectUserStoryRepository;
+
+    @Autowired
+    private SprintUserStoryRepository sprintUserStoryRepository;
 
     @Autowired
     private UserStoryProxy userStoryProxy;
@@ -72,12 +78,21 @@ public class ProjectServiceImpl implements ProjectService {
         List<Long> sprintIds = StreamSupport.stream(projectUserStoryRepository.findByProjectId(projectId).spliterator(), true)
                 .map(ProjectUserStory::getUserStoryId)
                 .collect(Collectors.toList());
-        return userStoryProxy.getUserStoriesByIds(sprintIds);
+        return StreamSupport.stream( userStoryProxy.getUserStoriesByIds(sprintIds).spliterator(), false)
+            .map(userStory -> {
+                    userStory.setSprintDTO(getSprintUserStoryByUserStoryId(userStory.getId()).getSprntDTO());
+                    return userStory;
+                }).collect(Collectors.toList());
     }
 
     @Override
     public void deleteProjectUserStory(Long projectId, Long userStoryId) {
         projectUserStoryRepository.deleteById(userStoryId);
         userStoryProxy.deleteUserStory(userStoryId);
+    }
+
+    @Override
+    public SprintUserStoryDTO getSprintUserStoryByUserStoryId(Long userStoryId){
+        return sprintUserStoryRepository.findById(userStoryId).get().toDTO();
     }
 }
