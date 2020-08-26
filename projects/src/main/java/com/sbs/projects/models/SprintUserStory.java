@@ -2,6 +2,8 @@ package com.sbs.projects.models;
 
 import com.sbs.contracts.dto.SprintUserStoryDTO;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -46,7 +48,7 @@ public class SprintUserStory {
 
     public SprintUserStoryDTO toDTO() {
         return new SprintUserStoryDTO.Builder()
-                .withSprint(this.sprint.toDTO())
+                .withSprint(Objects.nonNull(sprint) ? sprint.toDTO(): null)
                 .withUserStoryId(this.userStoryId)
                 .build();
     }

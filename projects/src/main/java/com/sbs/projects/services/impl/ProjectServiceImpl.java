@@ -80,7 +80,7 @@ public class ProjectServiceImpl implements ProjectService {
                 .collect(Collectors.toList());
         return StreamSupport.stream( userStoryProxy.getUserStoriesByIds(sprintIds).spliterator(), false)
             .map(userStory -> {
-                    userStory.setSprintDTO(getSprintUserStoryByUserStoryId(userStory.getId()).getSprntDTO());
+                    userStory.setSprint(getSprintUserStoryByUserStoryId(userStory.getId()).getSprntDTO());
                     return userStory;
                 }).collect(Collectors.toList());
     }
@@ -93,6 +93,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public SprintUserStoryDTO getSprintUserStoryByUserStoryId(Long userStoryId){
-        return sprintUserStoryRepository.findById(userStoryId).get().toDTO();
+        return sprintUserStoryRepository.findById(userStoryId).orElse(new SprintUserStory()).toDTO();
     }
 }
