@@ -57,11 +57,11 @@ public class UserStoryDTO {
         this.weight = weight;
     }
 
-    public void setSprintDTO(SprintDTO sprintDTO){
+    public void setSprint(SprintDTO sprintDTO){
         this.sprintDTO = sprintDTO;
     }
 
-    public SprintDTO getSprintDTO(){
+    public SprintDTO getSprint(){
         return this.sprintDTO;
     }
 
@@ -110,7 +110,7 @@ public class UserStoryDTO {
             return this;
         }
 
-        public Builder withSprintDTO(SprintDTO sprintDTO){
+        public Builder withSprint(SprintDTO sprintDTO){
             this.sprintDTO = sprintDTO;
             return this;
         }
