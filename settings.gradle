@@ -1,1 +1,1 @@
-include ":contracts", ":userstories", ":projects"
+include ":contracts", ":userStories", ":projects"
