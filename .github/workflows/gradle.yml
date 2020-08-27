@@ -20,7 +20,15 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Grant execute permission for gradlew
-      run: chmod +x contracs/gradlew
-    - name: Build with Gradle
-      run: contracts/gradlew build
+    - name: Grant execute permission for contracts/gradlew
+      run: chmod +x contracs/gradlew.sh
+    - name: Grant execute permission for projects/gradlew
+      run: chmod +x projects/gradlew.sh
+    - name: Grant execute permission for userStories/gradlew
+      run: chmod +x userStories/gradlew.sh
+    - name: Build Contracts with Gradle
+      run: contracts/gradlew.sh clean build install
+    - name: Build Projects with Gradle
+      run: contracts/gradlew.sh clean build
+    - name: Build userStories with Gradle
+      run: userStories/gradlew.sh clean build
