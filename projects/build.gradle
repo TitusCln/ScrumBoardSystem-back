@@ -5,24 +5,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 }
 
-task stage (dependsOn: bootRun) {
-    bootRun.doFirst{
-        args = ["--spring.profiles.active=stage"]
-    }
+task stage (dependsOn: bootJar) {
 }
 
-bootRun {
-    task->
-    onlyIf{
-        println "I'm in bootRun"
-        def project = System.getenv('PROJECT')
-        println project != "$task.project.name"
-        if ( project != "$task.project.name"){
-            return false
-        }
-        return true
-    }
-}
 
 // versioning information, project name is in settings.gradle
 group = 'com.sbs.projects'
