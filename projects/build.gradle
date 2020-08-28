@@ -6,6 +6,9 @@ plugins {
 }
 
 task stage (dependsOn: bootRun) {
+    bootRun.doFirst{
+        args = ["--spring.profiles.active=stage"]
+    }
 }
 
 bootRun {
