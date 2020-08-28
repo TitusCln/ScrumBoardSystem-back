@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import static java.util.Objects.nonNull;
+
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -70,6 +72,12 @@ public class ProjectServiceImpl implements ProjectService {
         projectUserStory.setIsolatedProjectId(projectId);
         projectUserStory.setUserStoryId(storyCreated.getId());
         projectUserStoryRepository.save(projectUserStory);
+        if (nonNull(userStoryDTO.getSprint()) && nonNull(userStoryDTO.getSprint().getId())) {
+            SprintUserStory sprintUserStory = new SprintUserStory();
+            sprintUserStory.setUserStoryId(storyCreated.getId());
+            sprintUserStory.setIsolatedSprintId(userStoryDTO.getSprint().getId());
+            sprintUserStoryRepository.save(sprintUserStory);
+        }
         return storyCreated;
     }
 

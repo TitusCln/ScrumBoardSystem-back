@@ -2,7 +2,14 @@ package com.sbs.userStories.models;
 
 import com.sbs.contracts.dto.TaskDTO;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table
@@ -13,7 +20,7 @@ public class Task {
     private Long id;
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false, precision = 1)
+    @Column(precision = 1)
     private Double duration;
     @ManyToOne
     @JoinColumn(name = "userstory_id")
@@ -63,6 +70,11 @@ public class Task {
 
     public void setUserStory(UserStory userStory) {
         this.userStory = userStory;
+    }
+
+    public Task withUserStory(UserStory userStory) {
+        this.userStory = userStory;
+        return this;
     }
 
     public TaskDTO toDTO() {

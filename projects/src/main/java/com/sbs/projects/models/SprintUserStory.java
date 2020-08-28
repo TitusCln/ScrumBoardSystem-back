@@ -2,13 +2,12 @@ package com.sbs.projects.models;
 
 import com.sbs.contracts.dto.SprintUserStoryDTO;
 
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 
 @Entity
@@ -40,7 +39,7 @@ public class SprintUserStory {
         this.userStoryId = userStoryId;
     }
 
-    public void setIsolatedProjectId(Long sprintId) {
+    public void setIsolatedSprintId(Long sprintId) {
         Sprint sprint = new Sprint();
         sprint.setId(sprintId);
         this.sprint = sprint;
