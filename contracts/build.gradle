@@ -3,6 +3,9 @@ plugins {
     id 'maven'
 }
 
+task stage (dependsOn: install) {
+}
+
 // versioning information, project name is in settings.gradle
 group = 'com.sbs.contracts'
 version = '1.0.0'
