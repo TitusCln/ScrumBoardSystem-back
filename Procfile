@@ -1,1 +1,1 @@
-web: java -jar $PROJECT/build/libs/$PROJECT.jar
+web: java -jar -Dspring.profile.active=$PROFILE $PROJECT/build/libs/$PROJECT.jar
