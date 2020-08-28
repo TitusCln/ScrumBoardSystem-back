@@ -52,16 +52,12 @@ public class UserStory {
     this.title = userStory.getTitle();
     this.description = userStory.getDescription();
     this.weight = userStory.getWeight();
-    this.labels = Optional.ofNullable(userStory.getLabels())
-            .orElse(new HashSet<>())
-            .parallelStream()
-            .map(Label::new)
-            .map(label -> label.addUserStory(this)).collect(Collectors.toSet());
     this.tasks = Optional.ofNullable(userStory.getTasks())
             .orElse(new HashSet<>())
             .parallelStream()
             .map(Task::new)
-            .map(task -> task.withUserStory(this)).collect(Collectors.toSet());
+            .map(task -> task.withUserStory(this))
+            .collect(Collectors.toSet());
   }
 
   public Long getId() {
