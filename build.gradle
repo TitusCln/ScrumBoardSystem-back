@@ -4,17 +4,4 @@ allprojects {
 }
 
 subprojects() {
-    // task stage doLast{ task ->
-    //     def project = System.getenv('PROJECT')
-    //     if (project == null) {
-    //         println "PROJECT env var should be defined"
-    //         return -1
-    //     }
-    //     if (project != "$task.project.name") {
-    //         return
-    //     }
-    //     println "I'm in $task.project.name $tasks.bootRun"
-    //     tasks.bootRun.execute()
-    // }
 }
-
