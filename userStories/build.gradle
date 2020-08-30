@@ -5,6 +5,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 }
 
+task stage (dependsOn: bootJar) {
+}
+
 repositories {
     jcenter()
     mavenCentral()
@@ -14,7 +17,8 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
-     implementation 'com.sbs.contracts:contracts:1.0.0'
+    implementation 'org.postgresql:postgresql:42.2.16'
+    implementation 'com.sbs.contracts:contracts:1.0.0'
     // Use JUnit test framework
     testImplementation 'junit:junit:4.13'
     implementation 'org.springframework.boot:spring-boot-starter-web'
