@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashSet;
 import java.util.stream.StreamSupport;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,8 +28,8 @@ public class UserStoryServiceTest {
                 .withDescription("Description")
                 .withTitle("Title")
                 .withWeight(0)
-                .withLabels(null)
-                .withTasks(null)
+                .withLabels(new HashSet<>())
+                .withTasks(new HashSet<>())
                 .build();
         UserStoryDTO userStoryCreated = userStoryService.createUserStory(storyToAdd);
         Assert.assertNotNull(userStoryCreated);
@@ -40,12 +41,12 @@ public class UserStoryServiceTest {
     @Test
     public void testGetAllUsersStories() {
         UserStoryDTO storyToAdd = new UserStoryDTO.Builder()
-                .withDescription("Description")
-                .withTitle("Title")
-                .withWeight(0)
-                .withLabels(null)
-                .withTasks(null)
-                .build();
+            .withDescription("Description")
+            .withTitle("Title")
+            .withWeight(0)
+            .withLabels(new HashSet<>())
+            .withTasks(new HashSet<>())
+            .build();
         userStoryService.createUserStory(storyToAdd);
         userStoryService.createUserStory(storyToAdd);
         userStoryService.createUserStory(storyToAdd);

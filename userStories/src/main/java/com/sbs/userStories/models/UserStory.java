@@ -4,7 +4,18 @@ import com.sbs.contracts.dto.LabelDTO;
 import com.sbs.contracts.dto.TaskDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -23,14 +34,14 @@ public class UserStory {
     private String description;
     @Column(nullable = false)
     private Integer weight;
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(
-      name = "story_label",
-      joinColumns = @JoinColumn(name = "userStory_id"),
-      inverseJoinColumns = @JoinColumn(name = "label_id"))
+          name = "story_label",
+          joinColumns = @JoinColumn(name = "userStory_id"),
+          inverseJoinColumns = @JoinColumn(name = "label_id"))
   private Set<Label> labels;
 
-  @OneToMany(mappedBy = "userStory", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "userStory", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Set<Task> tasks;
 
   public UserStory() {
@@ -41,14 +52,12 @@ public class UserStory {
     this.title = userStory.getTitle();
     this.description = userStory.getDescription();
     this.weight = userStory.getWeight();
-    this.labels = Optional.ofNullable(userStory.getLabels())
-        .orElse(new HashSet<>())
-        .parallelStream()
-        .map(Label::new).collect(Collectors.toSet());
     this.tasks = Optional.ofNullable(userStory.getTasks())
-        .orElse(new HashSet<>())
-        .parallelStream()
-        .map(Task::new).collect(Collectors.toSet());
+            .orElse(new HashSet<>())
+            .parallelStream()
+            .map(Task::new)
+            .map(task -> task.withUserStory(this))
+            .collect(Collectors.toSet());
   }
 
   public Long getId() {

@@ -11,6 +11,7 @@ public class UserStoryDTO {
     private String title;
     private String description;
     private int weight;
+    private SprintDTO sprintDTO;
     private Set<LabelDTO> labelDTOS;
     private Set<TaskDTO> taskDTOS;
 
@@ -19,6 +20,7 @@ public class UserStoryDTO {
         this.title = builder.title;
         this.description = builder.description;
         this.weight = builder.weight;
+        this.sprintDTO = builder.sprintDTO;
         this.labelDTOS = builder.labelDTOS;
         this.taskDTOS = builder.taskDTOS;
     }
@@ -55,6 +57,14 @@ public class UserStoryDTO {
         this.weight = weight;
     }
 
+    public void setSprint(SprintDTO sprintDTO){
+        this.sprintDTO = sprintDTO;
+    }
+
+    public SprintDTO getSprint(){
+        return this.sprintDTO;
+    }
+
     public Set<LabelDTO> getLabels() {
         return labelDTOS;
     }
@@ -76,6 +86,7 @@ public class UserStoryDTO {
         private String title;
         private String description;
         private Integer weight;
+        private SprintDTO sprintDTO;
         private Set<LabelDTO> labelDTOS;
         private Set<TaskDTO> taskDTOS;
 
@@ -96,6 +107,11 @@ public class UserStoryDTO {
 
         public Builder withWeight(Integer weight) {
             this.weight = weight;
+            return this;
+        }
+
+        public Builder withSprint(SprintDTO sprintDTO){
+            this.sprintDTO = sprintDTO;
             return this;
         }
 

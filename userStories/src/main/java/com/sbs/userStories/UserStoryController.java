@@ -1,7 +1,9 @@
 package com.sbs.userStories;
 
+import com.sbs.contracts.dto.LabelDTO;
 import com.sbs.contracts.dto.TaskDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
+import com.sbs.userStories.services.LabelService;
 import com.sbs.userStories.services.TaskService;
 import com.sbs.userStories.services.UserStoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class UserStoryController {
 
   @Autowired
   private TaskService taskService;
+
+  @Autowired
+  private LabelService labelService;
 
   @GetMapping(value = "/userstories", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<UserStoryDTO> getAllUsersStories() {
@@ -79,5 +84,10 @@ public class UserStoryController {
   @DeleteMapping(value = "/userstories/{userStoryId}/tasks/{taskId}")
   public void deleteTask(@PathVariable Long userStoryId, @PathVariable Long taskId) {
     taskService.deleteById(userStoryId, taskId);
+  }
+
+  @GetMapping(value = "/labels")
+  public Iterable<LabelDTO> getAllLabels() {
+    return labelService.getAll();
   }
 }

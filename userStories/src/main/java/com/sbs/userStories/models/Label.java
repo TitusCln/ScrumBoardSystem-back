@@ -2,8 +2,12 @@ package com.sbs.userStories.models;
 
 import com.sbs.contracts.dto.LabelDTO;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table
@@ -14,9 +18,6 @@ public class Label {
     private Long id;
     @Column(unique = true, nullable = false)
     private String description;
-
-    @ManyToMany
-    private Set<UserStory> userStories;
 
     public Label() {
     }
@@ -46,11 +47,11 @@ public class Label {
         this.description = description;
     }
 
-    public Set<UserStory> getUserStories() {
-        return userStories;
+    public static LabelDTO toDTO(Label label) {
+        return new LabelDTO.Builder()
+                .withId(label.getId())
+                .withDescription(label.getDescription())
+                .build();
     }
 
-    public void setUserStories(Set<UserStory> userStories) {
-        this.userStories = userStories;
-    }
 }
