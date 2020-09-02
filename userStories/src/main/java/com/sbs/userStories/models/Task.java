@@ -72,6 +72,11 @@ public class Task {
         this.userStory = userStory;
     }
 
+    public Task withUserStory(UserStory userStory) {
+        this.userStory = userStory;
+        return this;
+    }
+
     /**
      * Transforms the Task Entity to the TaskDTO Object
      *
