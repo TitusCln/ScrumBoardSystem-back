@@ -47,6 +47,11 @@ public class Label {
         this.description = description;
     }
 
+    /**
+     * Transforms the Label Entity to the LabelDT Object
+     *
+     * @return the DTO Label Object
+     */
     public static LabelDTO toDTO(Label label) {
         return new LabelDTO.Builder()
                 .withId(label.getId())

@@ -108,22 +108,26 @@ public class UserStory {
     this.tasks = tasks;
   }
 
+  /**
+   * Transforms the User Story Entity to the UserStoryDTO Object
+   *
+   * @return the DTO User Story Object
+   */
   public UserStoryDTO toDTO() {
     return new UserStoryDTO.Builder()
-        .withId(this.id)
-        .withTitle(this.title)
-        .withDescription(this.description)
-        .withWeight(this.weight)
-        .withLabels(this.labels.parallelStream().map(label -> new LabelDTO.Builder()
-            .withId(label.getId())
-            .withDescription(label.getDescription())
-            .build()).collect(Collectors.toSet()))
-        .withTasks(this.tasks.parallelStream().map(task -> new TaskDTO.Builder()
-            .withId(task.getId())
-            .withDescription(task.getDescription())
-            .withDuration(task.getDuration())
-//                .withUserStory(Optional.ofNullable(task.getUserStory()).orElse(new UserStory()).toDTO())
-            .build()).collect(Collectors.toSet()))
-        .build();
+            .withId(this.id)
+            .withTitle(this.title)
+            .withDescription(this.description)
+            .withWeight(this.weight)
+            .withLabels(this.labels.parallelStream().map(label -> new LabelDTO.Builder()
+                    .withId(label.getId())
+                    .withDescription(label.getDescription())
+                    .build()).collect(Collectors.toSet()))
+            .withTasks(this.tasks.parallelStream().map(task -> new TaskDTO.Builder()
+                    .withId(task.getId())
+                    .withDescription(task.getDescription())
+                    .withDuration(task.getDuration())
+                    .build()).collect(Collectors.toSet()))
+            .build();
   }
 }
