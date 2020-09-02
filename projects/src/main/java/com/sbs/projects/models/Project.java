@@ -2,7 +2,13 @@ package com.sbs.projects.models;
 
 import com.sbs.contracts.dto.ProjectDTO;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,6 +49,12 @@ public class Project {
         this.name = name;
     }
 
+    /**
+     * Transforms the Project Entity into a new ProjectDTO Object
+     *
+     * @param withSprints the specified flag to returns the Sprints relationship object
+     * @return the ProjectDTO Objects corresponded to the Project entity
+     */
     public ProjectDTO toDTO(Boolean withSprints) {
         ProjectDTO.Builder builder = new ProjectDTO.Builder()
                 .withId(this.id)
@@ -55,6 +67,11 @@ public class Project {
         return builder.build();
     }
 
+    /**
+     * Transforms the Project Entity into a new ProjectDTO Object
+     *
+     * @return the ProjectDTO Objects corresponded to the Project entity
+     */
     public ProjectDTO toDTO() {
         return this.toDTO(false);
     }

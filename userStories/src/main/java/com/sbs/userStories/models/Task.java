@@ -72,11 +72,11 @@ public class Task {
         this.userStory = userStory;
     }
 
-    public Task withUserStory(UserStory userStory) {
-        this.userStory = userStory;
-        return this;
-    }
-
+    /**
+     * Transforms the Task Entity to the TaskDTO Object
+     *
+     * @return the DTO Task Object
+     */
     public TaskDTO toDTO() {
         return new TaskDTO.Builder()
                 .withId(this.id)
@@ -85,6 +85,11 @@ public class Task {
                 .build();
     }
 
+    /**
+     * Sets the mock relationship between the the Task and the User Story
+     *
+     * @param userStoryId the User Story related id
+     */
     public void setIsolatedUserStory(Long userStoryId) {
         UserStory userStory = new UserStory();
         userStory.setId(userStoryId);

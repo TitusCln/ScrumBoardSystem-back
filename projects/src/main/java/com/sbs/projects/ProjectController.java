@@ -2,99 +2,118 @@ package com.sbs.projects;
 
 import com.sbs.contracts.dto.ProjectDTO;
 import com.sbs.contracts.dto.SprintDTO;
-import com.sbs.contracts.dto.SprintUserStoryDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
-import com.sbs.projects.services.ProjectService;
-import com.sbs.projects.services.SprintService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class ProjectController {
-    private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
+public interface ProjectController {
 
-    @Autowired
-    private ProjectService projectService;
-    @Autowired
-    private SprintService sprintService;
+    /**
+     * Gets all projects created and Sprints if <code>withSprints</code> it's set to <code>true</code>
+     *
+     * @param withSprints the optional attribute to return Sprints DTO related to the project
+     * @return the DTO Project Objects Iterable<ProjectDTO>
+     */
+    Iterable<ProjectDTO> getAllProjects(Boolean withSprints);
 
-    @GetMapping(value = "/projects", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<ProjectDTO> getAllProjects(@RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
-        return projectService.getAll(withSprints);
-    }
+    /**
+     * Gets the Project with the specified <code>projectId</code>
+     *
+     * @param projectId   the requested Project ID to be fetched
+     * @param withSprints the optional attribute to return Sprints DTO related to the project
+     * @return the DTO Project Object
+     */
+    ProjectDTO getProjectById(Long projectId, Boolean withSprints);
 
-    @GetMapping(value = "/projects/{projectId}")
-    public ProjectDTO getProjectById(@PathVariable Long projectId, @RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
-        return projectService.getById(projectId, withSprints);
-    }
+    /**
+     * Creates a new Project
+     *
+     * @param project the DTO Project with the data to be created
+     * @return the DTO Project created
+     */
+    ProjectDTO createProject(ProjectDTO project);
 
-    @PostMapping(value = "/projects")
-    public ProjectDTO createProject(@RequestBody ProjectDTO project) {
-        return projectService.create(project);
-    }
+    /**
+     * Updates the Project with the specified <code>projectId</code>
+     *
+     * @param projectId the requested Project ID to be updated
+     * @param project   the DTO Project with the data to be updates
+     * @return the DTO Project object with the new set of data
+     */
+    ProjectDTO updateProject(Long projectId, ProjectDTO project);
 
-    @PutMapping(value = "/projects/{projectId}")
-    public ProjectDTO updateProject(@PathVariable Long projectId, @RequestBody ProjectDTO project) {
-        return projectService.update(projectId, project);
-    }
+    /**
+     * Deletes the Project with the specified <code>projectId</code>
+     *
+     * @param projectId the requested Project ID to be deleted
+     */
+    void deleteProject(Long projectId);
 
-    @DeleteMapping(value = "/projects/{projectId}")
-    public void deleteProject(@PathVariable Long projectId) {
-        projectService.deleteById(projectId);
-    }
+    /**
+     * Gets all the sprints related to a Project by the <code>projectId</code> attribute
+     *
+     * @param projectId the Project ID related to the requested sprints
+     * @return the DTO Sprint Objects iterable<SprintDTO>
+     */
+    Iterable<SprintDTO> getAllSprints(Long projectId);
 
-    @GetMapping(value = "/projects/{projectId}/sprints")
-    public Iterable<SprintDTO> getAllSprints(@PathVariable Long projectId) {
-        return sprintService.getAll(projectId);
-    }
+    /**
+     * Get the Project's sprint with the specified <code>sprintId</code>
+     *
+     * @param projectId the Project ID related to the requested sprint
+     * @param sprintId  the requested Sprint ID
+     * @return the DTO Sprint Object
+     */
+    SprintDTO getSprint(Long projectId, Long sprintId);
 
-    @GetMapping(value = "/projects/{projectId}/sprints/{sprintId}")
-    public SprintDTO getSprint(@PathVariable Long projectId, @PathVariable Long sprintId) {
-        return sprintService.getById(projectId, sprintId);
-    }
+    /**
+     * Creates a new Sprint related to the Project with the specified <code>projectId</code>
+     *
+     * @param projectId the Project ID related to the new sprint
+     * @param sprint    the DTO Sprint with the data to be created
+     * @return the DTO Sprint Object
+     */
+    SprintDTO createSprint(Long projectId, SprintDTO sprint);
 
-    @PostMapping(value = "/projects/{projectId}/sprints")
-    public SprintDTO createSprint(@PathVariable Long projectId, @RequestBody SprintDTO sprint) {
-        return sprintService.create(projectId, sprint);
-    }
+    /**
+     * Updates the Sprint related with the specified <code>sprintId</code>
+     *
+     * @param projectId the Project ID related to the sprint
+     * @param sprintId  the Sprint ID to be updated
+     * @param sprint    the Sprint DTO with the new set of data to be updated
+     * @return the DTO Sprint Object
+     */
+    SprintDTO updateSprint(Long projectId, Long sprintId, SprintDTO sprint);
 
-    @PutMapping(value = "/projects/{projectId}/sprints/{sprintId}")
-    public SprintDTO updateSprint(@PathVariable Long projectId, @PathVariable Long sprintId, @RequestBody SprintDTO sprint) {
-        return sprintService.update(projectId, sprintId, sprint);
-    }
+    /**
+     * Deletes the Sprint specified by the <code>sprintId</code>
+     *
+     * @param projectId the Project ID related to the sprint
+     * @param sprintId  the Sprint ID to be deleted
+     */
+    void deleteSprint(Long projectId, Long sprintId);
 
-    @DeleteMapping(value = "/projects/{projectId}/sprints/{sprintId}")
-    public void deleteSprint(@PathVariable Long projectId, @PathVariable Long sprintId) {
-        sprintService.delete(projectId, sprintId);
-    }
+    /**
+     * Gets the Project's User Stories related to the <code>projectId</code>
+     *
+     * @param projectId the requested Project ID
+     * @return the DTO User Stories Object related to the project
+     */
+    Iterable<UserStoryDTO> getProjectUserStories(Long projectId);
 
-    @GetMapping(value = "/projects/{projectId}/userstories", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<UserStoryDTO> getProjectUserStories(@PathVariable Long projectId) {
-        return projectService.getProjectUserStories(projectId);
-    }
+    /**
+     * Creates a new User Story related to the Project identified by <code>projectId</code>
+     * and creates its relationship
+     *
+     * @param projectId    the related Project ID
+     * @param userStoryDTO the DTO User Story with the data to be created
+     * @return the created DTO User Story
+     */
+    UserStoryDTO createProjectUserStory(Long projectId, UserStoryDTO userStoryDTO);
 
-    @PostMapping(value = "/projects/{projectId}/userstories")
-    public UserStoryDTO createProjectUserStory(@PathVariable Long projectId, @RequestBody UserStoryDTO userStoryDTO) {
-        return projectService.createProjectUserStory(projectId, userStoryDTO);
-    }
-
-    @DeleteMapping(value = "/projects/{projectId}/userstories/{userStoryId}")
-    public void deleteProjectUserStory(@PathVariable Long projectId, @PathVariable Long userStoryId) {
-        projectService.deleteProjectUserStory(projectId, userStoryId);
-    }
-
-    @GetMapping(value = "/projects/sprints/{userStoryId}")
-    public SprintUserStoryDTO getSprintByUserStoryId(@PathVariable Long userStoryId){
-        return projectService.getSprintUserStoryByUserStoryId(userStoryId);
-    }
+    /**
+     * Deletes the User Story identified by the <code>userStoryId</code> and the relation between its Project
+     *
+     * @param projectId   the related Project ID
+     * @param userStoryId the request User Story ID to be deleted
+     */
+    void deleteProjectUserStory(Long projectId, Long userStoryId);
 }

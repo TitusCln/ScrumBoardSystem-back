@@ -5,6 +5,7 @@ import com.sbs.contracts.dto.TaskDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
 import com.sbs.userStories.services.LabelService;
 import com.sbs.userStories.services.TaskService;
+import com.sbs.userStories.services.UserStoryController;
 import com.sbs.userStories.services.UserStoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class UserStoryController {
+public class UserStoryControllerImpl implements UserStoryController {
 
   @Autowired
   private UserStoryService userStoryService;
