@@ -1,4 +1,4 @@
-package com.sbs.projects;
+package com.sbs.userStories;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,6 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 
 @EnableSwagger2
 @Configuration
@@ -31,7 +30,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 
     private ApiInfo projectsApiInfo() {
         return new ApiInfoBuilder()
-                .title("Service Projects")
+                .title("Service User Stories")
                 .version("1.0")
                 .license("Apache License Version 2.0")
                 .build();
