@@ -6,6 +6,8 @@ import com.sbs.contracts.dto.SprintUserStoryDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
 import com.sbs.projects.services.ProjectService;
 import com.sbs.projects.services.SprintService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Api(value = "Projects microservice")
 public class ProjectControllerImpl implements ProjectController {
     private static final Logger logger = LoggerFactory.getLogger(ProjectControllerImpl.class);
 
@@ -29,6 +32,7 @@ public class ProjectControllerImpl implements ProjectController {
     private SprintService sprintService;
 
     @GetMapping(value = "/projects", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "returns all the projects")
     public Iterable<ProjectDTO> getAllProjects(@RequestParam(name = "withSprints", defaultValue = "false") Boolean withSprints) {
         return projectService.getAll(withSprints);
     }
