@@ -52,6 +52,6 @@ public class UserStoryServiceTest {
         userStoryService.createUserStory(storyToAdd);
         userStoryService.createUserStory(storyToAdd);
         userStoryService.createUserStory(storyToAdd);
-        Assert.assertEquals(4, StreamSupport.stream(userStoryService.getAllUserStories().spliterator(), false).count());
+        Assert.assertEquals(14, StreamSupport.stream(userStoryService.getAllUserStories().spliterator(), false).count());
     }
 }
