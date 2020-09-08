@@ -10,6 +10,7 @@ import com.sbs.userStories.services.UserStoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -63,16 +64,16 @@ public class UserStoryServiceImpl implements UserStoryService {
           userStory.setTitle(updatedUserStory.getTitle());
           userStory.setDescription(updatedUserStory.getDescription());
           userStory.setWeight(updatedUserStory.getWeight());
-          userStory.setLabels(Optional.ofNullable(updatedUserStory.getLabels())
-              .orElse(new HashSet<>())
-              .parallelStream()
-              .map(Label::new)
-                  .collect(Collectors.toSet()));
-            userStory.setTasks(Optional.ofNullable(updatedUserStory.getTasks())
+            userStory.setLabels(Optional.ofNullable(updatedUserStory.getLabels())
                     .orElse(new HashSet<>())
                     .parallelStream()
-                    .map(Task::new)
+                    .map(Label::new)
                     .collect(Collectors.toSet()));
+            userStory.setTasks(Optional.ofNullable(updatedUserStory.getTasks())
+                    .orElse(new ArrayList<>())
+                    .parallelStream()
+                    .map(Task::new)
+                    .collect(Collectors.toList()));
             return userStoryRepository.save(userStory).toDTO();
         }).get();
   }

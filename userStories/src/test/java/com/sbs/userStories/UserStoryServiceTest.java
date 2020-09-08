@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.stream.StreamSupport;
 
@@ -29,7 +30,7 @@ public class UserStoryServiceTest {
                 .withTitle("Title")
                 .withWeight(0)
                 .withLabels(new HashSet<>())
-                .withTasks(new HashSet<>())
+                .withTasks(new ArrayList<>())
                 .build();
         UserStoryDTO userStoryCreated = userStoryService.createUserStory(storyToAdd);
         Assert.assertNotNull(userStoryCreated);
@@ -41,16 +42,16 @@ public class UserStoryServiceTest {
     @Test
     public void testGetAllUsersStories() {
         UserStoryDTO storyToAdd = new UserStoryDTO.Builder()
-            .withDescription("Description")
-            .withTitle("Title")
-            .withWeight(0)
-            .withLabels(new HashSet<>())
-            .withTasks(new HashSet<>())
+                .withDescription("Description")
+                .withTitle("Title")
+                .withWeight(0)
+                .withLabels(new HashSet<>())
+                .withTasks(new ArrayList<>())
             .build();
         userStoryService.createUserStory(storyToAdd);
         userStoryService.createUserStory(storyToAdd);
         userStoryService.createUserStory(storyToAdd);
         userStoryService.createUserStory(storyToAdd);
-        Assert.assertEquals(14, StreamSupport.stream(userStoryService.getAllUserStories().spliterator(), false).count());
+        Assert.assertEquals(4, StreamSupport.stream(userStoryService.getAllUserStories().spliterator(), false).count());
     }
 }

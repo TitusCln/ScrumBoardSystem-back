@@ -1,6 +1,8 @@
 package com.sbs.userStories.models;
 
 import com.sbs.contracts.dto.TaskDTO;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -25,6 +28,14 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "userstory_id")
     private UserStory userStory;
+    @Column
+    private Boolean done;
+    @Column(name = "order_position")
+    private Integer order;
+    @CreationTimestamp
+    private LocalDateTime createdTimeStamp;
+    @UpdateTimestamp
+    private LocalDateTime updatedTimeStamp;
 
     public Task() {
     }
@@ -33,6 +44,8 @@ public class Task {
         this.id = task.getId();
         this.description = task.getDescription();
         this.duration = task.getDuration();
+        this.done = task.getDone();
+        this.order = task.getOrder();
     }
 
 
@@ -72,6 +85,38 @@ public class Task {
         this.userStory = userStory;
     }
 
+    public Boolean getDone() {
+        return done;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public LocalDateTime getCreatedTimeStamp() {
+        return createdTimeStamp;
+    }
+
+    public void setCreatedTimeStamp(LocalDateTime createdTimeStamp) {
+        this.createdTimeStamp = createdTimeStamp;
+    }
+
+    public LocalDateTime getUpdatedTimeStamp() {
+        return updatedTimeStamp;
+    }
+
+    public void setUpdatedTimeStamp(LocalDateTime updatedTimeStamp) {
+        this.updatedTimeStamp = updatedTimeStamp;
+    }
+
     public Task withUserStory(UserStory userStory) {
         this.userStory = userStory;
         return this;
@@ -87,6 +132,10 @@ public class Task {
                 .withId(this.id)
                 .withDescription(this.description)
                 .withDuration(this.duration)
+                .withDone(this.done)
+                .withOrder(this.order)
+                .withCreatedTimeStamp(this.createdTimeStamp)
+                .withUpdatedTimeStamp(this.updatedTimeStamp)
                 .build();
     }
 
