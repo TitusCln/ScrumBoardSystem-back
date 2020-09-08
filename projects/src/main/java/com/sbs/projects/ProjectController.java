@@ -2,6 +2,7 @@ package com.sbs.projects;
 
 import com.sbs.contracts.dto.ProjectDTO;
 import com.sbs.contracts.dto.SprintDTO;
+import com.sbs.contracts.dto.SprintUserStoryDTO;
 import com.sbs.contracts.dto.UserStoryDTO;
 
 public interface ProjectController {
@@ -116,4 +117,12 @@ public interface ProjectController {
      * @param userStoryId the request User Story ID to be deleted
      */
     void deleteProjectUserStory(Long projectId, Long userStoryId);
+
+    /**
+     * Get the Sprint and User Story relationship specified by the <code>userStoryId</code>
+     *
+     * @param userStoryId the User Story Id requested
+     * @return the relationship between the Sprint and te requested User Story
+     */
+    SprintUserStoryDTO getSprintByUserStoryId(Long userStoryId);
 }
