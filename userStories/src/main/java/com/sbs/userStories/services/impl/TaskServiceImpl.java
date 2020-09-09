@@ -20,6 +20,7 @@ public class TaskServiceImpl implements TaskService {
     public Iterable<TaskDTO> getAll(Long userStoryId) {
         return StreamSupport.stream(taskRepository.findByUserStoryId(userStoryId).spliterator(), false)
                 .map(Task::toDTO)
+                .sorted()
                 .collect(Collectors.toList());
     }
 
@@ -43,10 +44,12 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDTO updateUserStoryTask(Long userStoryId, Long taskId, TaskDTO updatedTask) {
         return taskRepository.findById(taskId)
-                .map(TaskDTO -> {
-                    TaskDTO.setDescription(updatedTask.getDescription());
-                    TaskDTO.setDuration(updatedTask.getDuration());
-                    return taskRepository.save(TaskDTO).toDTO();
+                .map(Task -> {
+                    Task.setDescription(updatedTask.getDescription());
+                    Task.setDuration(updatedTask.getDuration());
+                    Task.setDone(updatedTask.getDone());
+                    Task.setOrder(updatedTask.getOrder());
+                    return taskRepository.save(Task).toDTO();
                 }).get();
     }
 }

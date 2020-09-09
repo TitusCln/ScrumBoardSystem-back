@@ -2,6 +2,7 @@ package com.sbs.contracts.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.util.List;
 import java.util.Set;
 
 @JsonDeserialize(builder = UserStoryDTO.Builder.class)
@@ -13,7 +14,7 @@ public class UserStoryDTO {
     private int weight;
     private SprintDTO sprintDTO;
     private Set<LabelDTO> labelDTOS;
-    private Set<TaskDTO> taskDTOS;
+    private List<TaskDTO> taskDTOS;
 
     public UserStoryDTO(Builder builder) {
         this.id = builder.id;
@@ -73,11 +74,11 @@ public class UserStoryDTO {
         this.labelDTOS = labelDTOS;
     }
 
-    public Set<TaskDTO> getTasks() {
+    public List<TaskDTO> getTasks() {
         return taskDTOS;
     }
 
-    public void setTasks(Set<TaskDTO> taskDTOS) {
+    public void setTasks(List<TaskDTO> taskDTOS) {
         this.taskDTOS = taskDTOS;
     }
 
@@ -88,7 +89,7 @@ public class UserStoryDTO {
         private Integer weight;
         private SprintDTO sprintDTO;
         private Set<LabelDTO> labelDTOS;
-        private Set<TaskDTO> taskDTOS;
+        private List<TaskDTO> taskDTOS;
 
         public Builder withId(Long id) {
             this.id=id;
@@ -120,7 +121,7 @@ public class UserStoryDTO {
             return this;
         }
 
-        public Builder withTasks(Set<TaskDTO> taskDTOS) {
+        public Builder withTasks(List<TaskDTO> taskDTOS) {
             this.taskDTOS = taskDTOS;
             return this;
         }
