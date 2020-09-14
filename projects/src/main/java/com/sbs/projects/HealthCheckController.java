@@ -11,6 +11,6 @@ public class HealthCheckController{
   @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   @ApiOperation(value = "Healthcheck endpoint")
   public String getAllUsersStories() {
-    return "I'm alive";
+    return "{\"message\": \"I'm alive\"}";
   }
 }
